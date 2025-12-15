@@ -109,9 +109,9 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="mail@gmail.com"
-                  className="input input-bordered join-item rounded-l-full bg-white border-gray-300  "
+                  className="input input-bordered join-item rounded-l-full bg-white border-primary  "
                 />
-                <button className="join-item bg-primary text-white font-medium px-6 rounded-r-full hover:bg-[#6da6a8] transition">
+                <button className="join-item bg-primary text-white font-medium px-6 rounded-r-full hover:bg-white border border-primary hover:text-black transition">
                   Subscribe
                 </button>
               </div>
