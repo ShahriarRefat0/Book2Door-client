@@ -13,6 +13,7 @@ import AddBooks from "../Pages/Dashboard/AddBooks/AddBooks";
 import MyBooks from "../Pages/Dashboard/MYBooks/MyBooks";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import ManageBooks from "../Pages/Dashboard/ManageBooks/ManageBooks";
+import LibrarianOrders from "../Pages/Dashboard/LibrarianOrders/LibrarianOrders";
 
 
 const router = createBrowserRouter([
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/manage-books',
         element: <ManageBooks></ManageBooks>
+      },
+      {
+        path: '/dashboard/orders',
+        element: <LibrarianOrders></LibrarianOrders>
       },
     ]
   }

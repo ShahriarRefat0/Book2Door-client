@@ -80,7 +80,7 @@ const UpdateProfileModal = ({ closeModal }) => {
             <input
               type="file"
               accept="image/*"
-              {...register("photo")}
+              {...register("photo", {required: true})}
               className="block w-full text-sm border border-gray-400 rounded-lg
               file:mr-4 file:py-2 file:px-4
               file:rounded-md file:border-0

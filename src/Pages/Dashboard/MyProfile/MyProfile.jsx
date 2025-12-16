@@ -7,8 +7,8 @@ const MyProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
-      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
+    <div className="min-h-screen bg-white  dark:bg-gray-900 p-6">
+      <div className="max-w-3xl mx-auto  bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg p-8">
 
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
           My Profile
@@ -45,7 +45,7 @@ const MyProfile = () => {
         <div className="mt-8 text-right">
           <button
             onClick={() => setIsOpen(true)}
-            className="btn btn-primary"
+            className="btn btn-primary text-white"
           >
             Update Profile
           </button>

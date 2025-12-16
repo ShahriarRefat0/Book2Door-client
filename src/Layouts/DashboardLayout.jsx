@@ -10,8 +10,36 @@ import { IoPersonCircle } from 'react-icons/io5';
 import Logo from '../Components/Logo/Logo';
 import { IoIosBookmarks } from "react-icons/io";
 import { BiSolidBookAdd } from "react-icons/bi";
+import { TbTruckDelivery } from "react-icons/tb";
+import useAuth from "../hook/useAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
+import { IoLogOut } from "react-icons/io5";
+
+
 
 const DashboardLayout = () => {
+  const { signOutUser } = useAuth();
+  const navigate = useNavigate();
+
+
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        Swal.fire({
+          title: "Signed Out",
+          icon: "success",
+        });
+        navigate("/");
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      });
+  };
 
   return (
     <div>
@@ -53,9 +81,10 @@ const DashboardLayout = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
-            {/* Sidebar content here */}
-            <ul className="menu w-full grow">
+          <div className="flex min-h-full flex-col bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+
+            {/* 🔹 Menu */}
+            <ul className="menu w-full flex-1">
               {/* List item */}
               <li>
                 <Link
@@ -130,6 +159,16 @@ const DashboardLayout = () => {
                 >
                   <IoIosBookmarks />
                   <span className="is-drawer-close:hidden">My Books</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Orders"
+                  to={"/dashboard/orders"}
+                >
+                  <TbTruckDelivery />
+                  <span className="is-drawer-close:hidden">Orders</span>
                 </NavLink>
               </li>
               <li>
@@ -241,6 +280,23 @@ const DashboardLayout = () => {
                 </button>
               </li>
             </ul>
+            <div className="w-full p-3 border-t border-base-300 mt-auto">
+              <button
+                onClick={handleSignOut}
+                className="
+      btn btn-outline btn-primary
+      w-full
+      flex items-center
+      gap-2
+      is-drawer-close:justify-center
+      is-drawer-open:justify-start
+    "
+              >
+                <IoLogOut className="text-xl shrink-0" />
+                <span className="is-drawer-close:hidden">Sign Out</span>
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
