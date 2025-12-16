@@ -4,6 +4,7 @@ import Coverage from './Coverage/Coverage';
 import WhyChooseBookCourier from './Coverage/WhyChooseBookCourier ';
 import LatestBooks from './LatestBooks';
 import BookDetails from '../BookDetails/BookDetails';
+import MostPopularBooks from './MostPopularBooks';
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Coverage></Coverage>
       <WhyChooseBookCourier></WhyChooseBookCourier>
       {/* <BookDetails></BookDetails> */}
+      <MostPopularBooks></MostPopularBooks>
     </div>
   );
 };

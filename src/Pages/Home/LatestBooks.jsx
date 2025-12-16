@@ -43,7 +43,7 @@ const LatestBooks = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38] dark:text-gray-200">
             Latest Books
           </h2>
-          <p className="mt-4 text-gray-600 text-lg">
+          <p className="mt-4 text-gray-500 text-lg">
             Discover the newest arrivals handpicked for book lovers
           </p>
         </div>
