@@ -42,10 +42,10 @@ const [serviceCenters, setServiceCenter] =useState([])
 }
   // console.log(serviceCenters)
   return (
-    <div className="bg-[#F4F6F8]  p-15 rounded-3xl">
+    <div className="bg-white dark:bg-gray-900  p-15">
       <div className="max-w-11/12 mx-auto">
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38] text-center">
+        <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38] dark:text-gray-200 text-center">
           We are available in 64 districts
         </h2>
 
@@ -94,7 +94,7 @@ const [serviceCenters, setServiceCenter] =useState([])
         <div className="w-full h-[1px] bg-gray-300 my-10"></div>
 
         {/* Sub heading */}
-        <h3 className="text-2xl font-bold text-[#0A2A38] mb-6">
+        <h3 className="text-2xl font-bold text-[#0A2A38] dark:text-gray-200 mb-6">
           We deliver almost all over Bangladesh
         </h3>
 

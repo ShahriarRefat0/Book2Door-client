@@ -35,12 +35,12 @@ const LatestBooks = () => {
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-[#F4F6F8] dark:bg-gray-700 ">
       <div className="max-w-6xl mx-auto px-4">
 
         {/* Heading */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38]">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38] dark:text-gray-200">
             Latest Books
           </h2>
           <p className="mt-4 text-gray-600 text-lg">

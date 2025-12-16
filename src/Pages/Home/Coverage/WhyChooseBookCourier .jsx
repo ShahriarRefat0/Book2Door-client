@@ -35,15 +35,15 @@ const WhyChooseBookCourier = () => {
   ];
 
   return (
-    <section className="bg-[#F4F6F8] py-16">
+    <section className="bg-[#F4F6F8] dark:bg-gray-700 py-16">
       <div className="max-w-6xl mx-auto px-4">
 
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38]">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38] dark:text-gray-200">
             Why Choose BookCourier?
           </h2>
-          <p className="mt-4 text-gray-600 text-lg">
+          <p className="mt-4 text-gray-600 dark:text-gray-400 text-lg">
             We make buying and delivering books simple, fast, and reliable - all over Bangladesh.
           </p>
         </div>
@@ -53,15 +53,15 @@ const WhyChooseBookCourier = () => {
           {features.map((item, index) => (
             <div
               key={index}
-              className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition"
+              className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow hover:shadow-lg dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.35)] transition"
             >
               <div className="text-4xl text-primary mb-4">
                 {item.icon}
               </div>
-              <h3 className="text-xl font-semibold text-[#0A2A38] mb-2">
+              <h3 className="text-xl font-semibold text-[#0A2A38] dark:text-gray-200 mb-2">
                 {item.title}
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 ">
                 {item.desc}
               </p>
             </div>
