@@ -5,10 +5,10 @@ import Logo from '../Logo/Logo';
 import Swal from 'sweetalert2';
 
 const Navbar = () => {
-  const { user, loading,
+  const { user,
     signOutUser, } = useAuth()
   const [theme, setTheme] = useState(localStorage.getItem("theme") || 'light')
-  const navigate =  useNavigate()
+  const navigate = useNavigate()
 
 
   const links = (
@@ -29,14 +29,14 @@ const Navbar = () => {
           Books
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          Dashboard
-        </NavLink>
-      </li>
+
+      {user && (
+        <>
+          <li>
+            <NavLink to="/dashboard/my-order">Dashboard</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -62,20 +62,20 @@ const Navbar = () => {
   const handleSignOut = () => {
     signOutUser()
       .then((e) => {
-            Swal.fire({
-              title: "SignOUt Successful",
-              icon: "success",
-            });
+        Swal.fire({
+          title: "SignOUt Successful",
+          icon: "success",
+        });
         navigate('/')
       })
       .catch((e) => {
-       console.log(e.message)
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Something went wrong!",
-            });
-    })
+        console.log(e.message)
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      })
   }
 
 
@@ -114,7 +114,7 @@ const Navbar = () => {
               onChange={(e) => handleTheme(e.target.checked)}
             />
 
-          
+
             <svg
               className="swap-off w-6 h-6 text-yellow-500"
               xmlns="http://www.w3.org/2000/svg"
@@ -138,11 +138,11 @@ const Navbar = () => {
           </label>
 
 
-    
+
           {user ? (
             <>
               {/* Avatar Dropdown */}
-              <div className="dropdown dropdown-end">
+              <div className="dropdown dropdown-end pr-4">
                 <label tabIndex={0} className="cursor-pointer">
                   <div className="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
                     <img

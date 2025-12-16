@@ -5,6 +5,15 @@ import AuthLayout from "../Layouts/AuthLayouts";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/Register/Register";
 import BookDetails from "../Pages/BookDetails/BookDetails";
+import DashboardLayout from "../Layouts/DashboardLayout";
+import MyOrder from "../Pages/Dashboard/MyOrder/MyOrder";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
+import MyProfile from "../Pages/Dashboard/MyProfile/MyProfile";
+import AddBooks from "../Pages/Dashboard/AddBooks/AddBooks";
+import MyBooks from "../Pages/Dashboard/MYBooks/MyBooks";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
+import ManageBooks from "../Pages/Dashboard/ManageBooks/ManageBooks";
+
 
 const router = createBrowserRouter([
   {
@@ -28,7 +37,42 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> }
     ]
+  },
+  {
+    path: '/dashboard',
+    element: <DashboardLayout></DashboardLayout>,
+    children: [
+      {
+        path: '/dashboard/my-order',
+        element: <MyOrder></MyOrder>
+      },
+      {
+        path: '/dashboard/payment-history',
+        element: <PaymentHistory></PaymentHistory>
+      },
+      {
+        path: '/dashboard/my-profile',
+        element: <MyProfile></MyProfile>
+      },
+      {
+        path: '/dashboard/add-books',
+        element: <AddBooks></AddBooks>
+      },
+      {
+        path: '/dashboard/my-books',
+        element: <MyBooks></MyBooks>
+      },
+      {
+        path: '/dashboard/all-users',
+        element: <AllUsers></AllUsers>
+      },
+      {
+        path: '/dashboard/manage-books',
+        element: <ManageBooks></ManageBooks>
+      },
+    ]
   }
 ]);
+
 
 export default router;

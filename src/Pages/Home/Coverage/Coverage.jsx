@@ -40,7 +40,7 @@ const [serviceCenters, setServiceCenter] =useState([])
 
     
 }
-  console.log(serviceCenters)
+  // console.log(serviceCenters)
   return (
     <div className="bg-[#F4F6F8]  p-15 rounded-3xl">
       <div className="max-w-11/12 mx-auto">
