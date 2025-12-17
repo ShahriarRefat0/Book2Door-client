@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 
 const BookCard = ({ book }) => {
-  const { id, title, author, price, image } = book;
+  const { _id, title, author, price, image } = book;
 
   return (
     <div className=" bg-white dark:bg-gray-800 hover:shadow-md transition border border-gray-200 dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.35)] ">
@@ -31,7 +31,7 @@ const BookCard = ({ book }) => {
         </span>
 
         <Link
-          to={`/book-details/${id}`}
+          to={`/book-details/${_id}`}
           className="btn btn-sm btn-outline btn-primary"
         >
           View

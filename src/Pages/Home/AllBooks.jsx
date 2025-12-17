@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import BookCard from "../../Components/BookCard";
 import useAxios from "../../hook/useAxios";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 
 
 const AllBooks = () => {
@@ -17,9 +18,7 @@ const axios = useAxios()
 
   if (isLoading) {
     return (
-      <div className="text-center py-20 text-lg">
-        Loading books...
-      </div>
+    <LoadingSpinner></LoadingSpinner>
     );
   }
 

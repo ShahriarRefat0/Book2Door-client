@@ -15,12 +15,13 @@ const AddBooks = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data)
     try {
 
       const imageFile = data.image[0];
       const imageURL = await imageUpload(imageFile);
 
- 
+
       const bookData = {
         title: data.title,
         author: data.author,
@@ -30,6 +31,9 @@ const AddBooks = () => {
         image: imageURL,
         createdAt: new Date(),
         librarianEmail: user?.email,
+        category: data?.category,
+        tags: data?.tags,
+        
       };
 
       // console.log(bookData)
@@ -98,7 +102,7 @@ const AddBooks = () => {
               type="file"
               accept="image/*"
               {...register("image", { required: "Image is required" })}
-               className="block w-full text-sm border border-gray-300 rounded-lg
+              className="block w-full text-sm border border-gray-300 rounded-lg
               file:mr-4 file:py-2 file:px-4
               file:rounded-md file:border-0
               file:bg-primary file:text-white
@@ -110,35 +114,70 @@ const AddBooks = () => {
             )}
           </div>
 
-       
 
-          {/* Price */}
-          <div>
-            <label className="label">Price ($)</label>
-            <input
-              type="number"
-              step="0.01"
-              {...register("price", { required: "Price is required" })}
-              className="input input-bordered w-full"
-              placeholder="Price"
-            />
-            {errors.price && (
-              <p className="text-red-500 text-sm">{errors.price.message}</p>
-            )}
+          <div className="flex justify-between gap-3">
+            {/* Price */}
+            <div className="w-full">
+              <label className="label">Price ($)</label>
+              <input
+                type="number"
+                step="0.01"
+                {...register("price", { required: "Price is required" })}
+                className="input input-bordered w-full"
+                placeholder="Price"
+              />
+              {errors.price && (
+                <p className="text-red-500 text-sm">{errors.price.message}</p>
+              )}
+            </div>
+
+            {/* Status */}
+            <div className="w-full">
+              <label className="label">Status</label>
+              <select
+                {...register("status", { required: true })}
+                className="select select-bordered w-full"
+                defaultValue="published"
+              >
+               
+              <option value="Published">Published</option>
+              <option value="Unpublished">Unpublished</option>
+              </select>
+            </div>
           </div>
 
-          {/* Status */}
-          <div>
-            <label className="label">Status</label>
-            <select
-              {...register("status", { required: true })}
-              className="select select-bordered w-full"
-              defaultValue="published"
-            >
-              <option value="published">Published</option>
-              <option value="unpublished">Unpublished</option>
-            </select>
+          <div className="flex justify-between gap-3">
+            {/* Tags */}
+            <div className="w-full">
+              <label className="label">Tags</label>
+              <input
+                type="text"
+                step="0.01"
+                {...register("tags", { required: "Tags is required" })}
+                className="input input-bordered w-full"
+                placeholder="Tags"
+              />
+              {errors.price && (
+                <p className="text-red-500 text-sm">{errors.tags.message}</p>
+              )}
+            </div>
+
+            {/* category */}
+            <div className="w-full">
+              <label className="label">Category</label>
+              <input
+                type="text"
+                step="0.01"
+                {...register("category", { required: "Category is required" })}
+                className="input input-bordered w-full"
+                placeholder="Category"
+              />
+              {errors.price && (
+                <p className="text-red-500 text-sm">{errors.category.message}</p>
+              )}
+            </div>
           </div>
+
 
           {/* Description (Optional Extra Field) */}
           <div>
