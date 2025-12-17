@@ -23,10 +23,10 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/books"
+          to="/all-books"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
-          Books
+          All Books
         </NavLink>
       </li>
 

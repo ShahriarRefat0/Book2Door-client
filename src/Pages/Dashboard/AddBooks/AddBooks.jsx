@@ -1,9 +1,12 @@
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import axios from "axios";
 import { imageUpload } from "../../../utils";
+import useAuth from "../../../hook/useAuth";
+import useAxios from "../../../hook/useAxios";
 
 const AddBooks = () => {
+  const { user } = useAuth()
+  const axios = useAxios()
   const {
     register,
     handleSubmit,
@@ -13,11 +16,11 @@ const AddBooks = () => {
 
   const onSubmit = async (data) => {
     try {
-      // 1️⃣ Upload Image
+
       const imageFile = data.image[0];
       const imageURL = await imageUpload(imageFile);
 
-      // 2️⃣ Create Book Object
+ 
       const bookData = {
         title: data.title,
         author: data.author,
@@ -26,9 +29,11 @@ const AddBooks = () => {
         description: data.description,
         image: imageURL,
         createdAt: new Date(),
+        librarianEmail: user?.email,
       };
 
-      // 3️⃣ Save to DB
+      // console.log(bookData)
+
       await axios.post(
         `${import.meta.env.VITE_API_URL}/books`,
         bookData
