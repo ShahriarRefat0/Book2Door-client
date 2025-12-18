@@ -55,7 +55,7 @@ const BookDetails = () => {
 
         {/* RIGHT: Content */}
         <div>
-          <h1 className="text-4xl font-bold text-[#0A2A38] mb-3">
+          <h1 className="text-4xl font-bold text-[#0A2A38] dark:text-gray-200 mb-3">
             {book?.title}
           </h1>
 
@@ -63,7 +63,7 @@ const BookDetails = () => {
             ${book?.price}
           </p>
 
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 dark:text-gray-200 mb-4">
             {book?.description}
           </p>
 
@@ -95,15 +95,15 @@ const BookDetails = () => {
           </div>
 
           {/* Meta Info */}
-          <div className="text-sm text-gray-600 space-y-1">
+          <div className="text-sm text-gray-600 dark:text-gray-200 space-y-1">
             <p>
               <strong>Category:</strong>{" "}
               <span className="italic">{book?.category}</span>
             </p>
-            <p>
+            {/* <p>
               <strong>In Stock:</strong>{" "}
               <span className="italic">{book?.quantity}</span>
-            </p>
+            </p> */}
             <p>
               <strong>Tags:</strong>{" "}
               <span className="italic">

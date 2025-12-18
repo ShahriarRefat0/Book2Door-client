@@ -9,7 +9,7 @@ const MyOrder = () => {
 const {user} = useAuth()
   const axios = useAxios()
 
-  const { data: orders = [], isLoading, isError } = useQuery({
+  const { data: orders = [], isLoading, isError, refetch } = useQuery({
     queryKey: ['orders', user?.email],
     queryFn: async () => {
       const res = await axios.get(`/orders/${user?.email}`);
@@ -38,6 +38,7 @@ const {user} = useAuth()
    console.log(order)
 
     const paymentInfo = {
+      orderId: order?._id,
       bookId: order?.bookId,
       name: order?.name,
       category: order?.category,
@@ -54,32 +55,28 @@ const {user} = useAuth()
 
     const { data} = await axios.post(`/create-checkout-session`, paymentInfo)
 
-    window.location.href = data.url
+    window.location.assign(data.url)
   }
 
 
-  // ❌ Cancel Order
-  // const handleCancel = async (id) => {
-  //   const confirm = await Swal.fire({
-  //     title: "Cancel this order?",
-  //     text: "This action cannot be undone!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonText: "Yes, cancel it",
-  //   });
+  //  Cancel Order
+  const handleCancel = async (id) => {
+    const confirm = await Swal.fire({
+      title: "Cancel this order?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, cancel it",
+    });
 
-  //   if (!confirm.isConfirmed) return;
+    if (!confirm.isConfirmed) return;
 
-  //   await axios.patch(`${import.meta.env.VITE_API_URL}/orders/cancel/${id}`);
+    await axios.patch(`/orders/cancel/${id}`);
 
-  //   setOrders(prev =>
-  //     prev.map(order =>
-  //       order._id === id ? { ...order, status: "cancelled" } : order
-  //     )
-  //   );
+    refetch();
 
-  //   Swal.fire("Cancelled!", "Your order has been cancelled.", "success");
-  // };
+    Swal.fire("Cancelled!", "Your order has been cancelled.", "success");
+  };
 
 
   return (
@@ -119,8 +116,8 @@ const {user} = useAuth()
                       className={`badge ${order.orderStatus === "pending"
                         ? "badge-warning"
                         : order.orderStatus === "cancelled"
-                          ? "badge-error"
-                          : "badge-success"
+                          ?  "badge-success" : "badge-error"
+                          
                         }`}
                     >
                       {order.orderStatus}
@@ -128,7 +125,7 @@ const {user} = useAuth()
                   </td>
                   <td>
                     <span
-                      className={`badge ${order.paymentStatus === "Unpaid"
+                      className={`badge ${order.paymentStatus === "unpaid"
                         ? "badge-warning" :  "badge-success" 
                         }`}
                     >
@@ -137,23 +134,36 @@ const {user} = useAuth()
                   </td>
 
                   <td className="space-x-2">
-                    {/* 💳 Pay Now Button */}
-               
-                    <button
-                      onClick={() => handlePayment(order)}
-                      // to={`/dashboard/payment/${order._id}`}
-                      className="btn btn-sm btn-primary text-white hover:text-gray-800 hover:bg-white" 
-                    >
-                      Pay Now
-                    </button>
 
-                    <button
-                     // onClick={() => handlePayment(order._id)}
-//                      to={`/dashboard/payment/${order._id}`}
-                      className="btn btn-sm btn-error hover:bg-white text-white hover:text-gray-800"
-                    >
-                      Cancel
-                    </button>
+                    {/* Pay Now Button */}
+                    {order.orderStatus === "pending" && order.paymentStatus === "unpaid" && (
+                      <button
+                        onClick={() => handlePayment(order)}
+                        className="btn btn-sm btn-primary text-white hover:text-gray-800 hover:bg-white"
+                      >
+                        Pay Now
+                      </button>
+                    )}
+
+                    {/* Cancel / Cancelled Button */}
+                    {order.orderStatus === "pending" && (
+                      <button
+                        onClick={() => handleCancel(order._id)}
+                        className="btn btn-sm btn-error hover:bg-white text-white hover:text-gray-800"
+                      >
+                        Cancel
+                      </button>
+                    )}
+
+                    {order.orderStatus === "cancelled" && (
+                      <button
+                        disabled
+                        className="btn btn-sm btn-outline btn-error opacity-60 cursor-not-allowed"
+                      >
+                        Cancelled
+                      </button>
+                    )}
+
                   </td>
                 </tr>
               ))}

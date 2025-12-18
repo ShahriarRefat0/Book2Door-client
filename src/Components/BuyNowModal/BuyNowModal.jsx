@@ -21,26 +21,7 @@ const BuyNowModal = ({ isOpen, onClose, book, onConfirm }) => {
 
   if (!isOpen) return null;
 
-//   const handlePayment = async () => {
-  
-//     const paymentInfo = {
-//       bookId: book?._id,
-//       name: book?.title,
-//       category: book?.category,
-//       price: book?.price,
-//       description: book?.description,
-//       image: book?.image,
-//       quantity: 1,
-//       customer: {
-//       name: user?.displayName,
-//         email: user?.email,
-//         image: user?.photoURL
-//       }
-//     }
 
-//     const { data} = await axios.post(`/create-checkout-session`, paymentInfo)
-//     window.location.href= data.url
-// }
 
   const handleConfirm = async (data ) => {
     // console.log(data)
@@ -60,7 +41,7 @@ const BuyNowModal = ({ isOpen, onClose, book, onConfirm }) => {
       librarian: book?.librarian,
       address: data.address,
       phoneNumber: data.phoneNumber,
-      paymentStatus: "Unpaid",
+      paymentStatus: "unpaid",
       orderStatus: 'pending',
       createdAt: new Date(),
     }
