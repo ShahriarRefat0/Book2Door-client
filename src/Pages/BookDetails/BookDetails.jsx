@@ -101,6 +101,10 @@ const BookDetails = () => {
               <span className="italic">{book?.category}</span>
             </p>
             <p>
+              <strong>In Stock:</strong>{" "}
+              <span className="italic">{book?.quantity}</span>
+            </p>
+            <p>
               <strong>Tags:</strong>{" "}
               <span className="italic">
                 {book?.tags}

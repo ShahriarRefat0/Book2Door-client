@@ -14,11 +14,11 @@ if (theme === "dark") {
 const queryclient = new QueryClient()
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <div>
     <QueryClientProvider client={queryclient}>
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
   </QueryClientProvider>
-  </StrictMode>
+  </div>
 );

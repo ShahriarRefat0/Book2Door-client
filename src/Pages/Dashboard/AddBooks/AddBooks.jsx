@@ -30,8 +30,13 @@ const AddBooks = () => {
         description: data.description,
         image: imageURL,
         createdAt: new Date(),
-        librarianEmail: user?.email,
+        librarian: {
+          image: user?.photoURL,
+          name: user?.displayName,
+          email: user?.email,
+        },
         category: data?.category,
+        quantity: parseFloat(data?.quantity),
         tags: data?.tags,
         
       };
@@ -147,18 +152,18 @@ const AddBooks = () => {
           </div>
 
           <div className="flex justify-between gap-3">
-            {/* Tags */}
+            {/* Quantity */}
             <div className="w-full">
-              <label className="label">Tags</label>
+              <label className="label">Quantity</label>
               <input
-                type="text"
+                type="number"
                 step="0.01"
-                {...register("tags", { required: "Tags is required" })}
+                {...register("quantity", { required: "Quantity is required" })}
                 className="input input-bordered w-full"
-                placeholder="Tags"
+                placeholder="Quantity"
               />
-              {errors.price && (
-                <p className="text-red-500 text-sm">{errors.tags.message}</p>
+              {errors.quantity && (
+                <p className="text-red-500 text-sm">{errors.quantity.message}</p>
               )}
             </div>
 
@@ -172,12 +177,26 @@ const AddBooks = () => {
                 className="input input-bordered w-full"
                 placeholder="Category"
               />
-              {errors.price && (
+              {errors.category && (
                 <p className="text-red-500 text-sm">{errors.category.message}</p>
               )}
             </div>
           </div>
 
+          {/* Tags */}
+          <div className="w-full">
+            <label className="label">Tags</label>
+            <input
+              type="text"
+              step="0.01"
+              {...register("tags", { required: "Tags is required" })}
+              className="input input-bordered w-full"
+              placeholder="Tags"
+            />
+            {errors.tags && (
+              <p className="text-red-500 text-sm">{errors.tags.message}</p>
+            )}
+          </div>
 
           {/* Description (Optional Extra Field) */}
           <div>
