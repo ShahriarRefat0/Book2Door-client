@@ -1,19 +1,19 @@
 import { Link } from "react-router";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import useAxios from "../../../hook/useAxios";
+import useAuth from "../../../hook/useAuth";
 
 const MyBooks = () => {
-  const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/my-books`)
-      .then((res) => {
-        setBooks(res.data);
-        setLoading(false);
-      });
-  }, []);
+  const axios = useAxios()
+  const {user} = useAuth()
+  const { data: books = [] } = useQuery({
+    queryKey: ["books", user?.email],
+    queryFn: async () => {
+      const res = await axios.get(`/my-inventory/${user?.email}`)
+      return res?.data
+    }
+  })
+  console.log(books)
 
   // if (loading) {
   //   return <div className="p-6">Loading...</div>;
@@ -30,7 +30,7 @@ const MyBooks = () => {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Book</th>
+                <th>Book info</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -38,38 +38,47 @@ const MyBooks = () => {
 
             <tbody>
               {books.map((book, index) => (
-                <tr key={book._id}>
+                <tr key={book?._id}>
+                  {/* Index */}
                   <td>{index + 1}</td>
 
                   {/* Book Info */}
-                  <td className="flex items-center gap-3">
-                    <img
-                      src={book.image}
-                      alt={book.title}
-                      className="w-12 h-16 object-cover rounded-md"
-                    />
-                    <span className="font-medium">{book.title}</span>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar rounded-sm">
+                        <div className="mask mask-squircle h-12 w-12">
+                          <img
+                            src={book?.image}
+                            alt={book?.title}
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{book?.title}</div>
+                        <div className="text-sm opacity-50">
+                          {book?.author}
+                        </div>
+                      </div>
+                    </div>
                   </td>
 
                   {/* Status */}
                   <td>
-                    <span
-                      className={`badge ${book.status === "published"
-                          ? "badge-success"
-                          : "badge-warning"
-                        }`}
-                    >
-                      {book.status}
+                    <span className={`badge 
+                  ${book?.status === "Published"
+                        ? "badge-success"
+                        : "badge-warning"}`}>
+                      {book?.status}
                     </span>
                   </td>
 
-                  {/* Edit */}
+                  {/* Action */}
                   <td>
                     <Link
-                      to={`/dashboard/edit-book/${book._id}`}
-                      className="btn btn-sm btn-outline btn-primary"
-                    >
-                      Edit
+                      
+                      to={`/dashboard/edit-book-info/${book._id}`}
+                      className="btn btn-ghost btn-xs">
+                      Edit Info
                     </Link>
                   </td>
                 </tr>
@@ -80,6 +89,7 @@ const MyBooks = () => {
         </div>
       </div>
     </div>
+
   );
 };
 

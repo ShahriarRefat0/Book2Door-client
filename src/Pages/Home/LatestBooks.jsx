@@ -1,38 +1,21 @@
 import { Link } from "react-router";
 import BookCard from "../../Components/BookCard";
+import { useQuery } from "@tanstack/react-query";
+import useAxios from "../../hook/useAxios";
 
 const LatestBooks = () => {
-  // Dummy data (later API থেকে replace করতে পারবে)
-  const latestBooks = [
-    {
-      id: 1,
-      title: "Atomic Habits",
-      author: "James Clear",
-      price: 420,
-      image: "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg",
-    },
-    {
-      id: 2,
-      title: "Rich Dad Poor Dad",
-      author: "Robert Kiyosaki",
-      price: 380,
-      image: "https://images-na.ssl-images-amazon.com/images/I/81bsw6fnUiL.jpg",
-    },
-    {
-      id: 3,
-      title: "The Alchemist",
-      author: "Paulo Coelho",
-      price: 350,
-      image: "https://images-na.ssl-images-amazon.com/images/I/71aFt4+OTOL.jpg",
-    },
-    {
-      id: 4,
-      title: "Deep Work",
-      author: "Cal Newport",
-      price: 410,
-      image: "https://images-na.ssl-images-amazon.com/images/I/81JJ7fyyKyS.jpg",
-    },
-  ];
+const axios = useAxios()
+  const { data: latestBooks = [] } = useQuery({
+    queryKey: ["latestBooks", "Published"],
+    queryFn: async () => {
+      const res = await axios.get('/latest-books', {
+          params: {
+          status: "Published",
+        }}
+      )
+      return res.data
+    }
+  })
 
   return (
     <section className="py-16 bg-[#F4F6F8] dark:bg-gray-700 ">
@@ -57,7 +40,7 @@ const LatestBooks = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <Link to="/books" className="btn btn-primary hover:bg-white hover:text-black px-8">
+          <Link to="/all-books" className="btn btn-primary hover:bg-white hover:text-black px-8">
             View All Books
           </Link>
         </div>

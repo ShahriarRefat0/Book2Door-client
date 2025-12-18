@@ -139,14 +139,17 @@ const AddBooks = () => {
             {/* Status */}
             <div className="w-full">
               <label className="label">Status</label>
+
               <select
                 {...register("status", { required: true })}
                 className="select select-bordered w-full"
-                defaultValue="published"
+                defaultValue=""
               >
-               
-              <option value="Published">Published</option>
-              <option value="Unpublished">Unpublished</option>
+                <option value="" disabled>
+                  Select status
+                </option>
+                <option value="Published">Published</option>
+                <option value="Unpublished">Unpublished</option>
               </select>
             </div>
           </div>

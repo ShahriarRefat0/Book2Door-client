@@ -15,7 +15,7 @@ const Home = () => {
       <LatestBooks></LatestBooks>
       <Coverage></Coverage>
       <WhyChooseBookCourier></WhyChooseBookCourier>
-      {/* <BookDetails></BookDetails> */}
+     
       <MostPopularBooks></MostPopularBooks>
       <Brands></Brands>
       <Blogs></Blogs>

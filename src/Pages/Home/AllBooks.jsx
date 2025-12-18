@@ -7,9 +7,11 @@ import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 const AllBooks = () => {
 const axios = useAxios()
   const { data: books =[ ], isLoading, isError } = useQuery({
-    queryKey: ['books'],
+    queryKey: ['books', "Published"],
     queryFn: async () => {
-      const res = await axios.get('/books');
+      const res = await axios.get(`/books`, {
+        params: { status: "Published" }
+      });
       return res.data
     }
   })

@@ -17,7 +17,7 @@ const {user} = useAuth()
     }
   })
 
-  console.log("all  order", orders)
+  // console.log("all  order", orders)
 
 
   if (isLoading) {
