@@ -26,7 +26,7 @@ const BookDetails = () => {
     enabled: !!id,
     queryFn: async () => {
       const res = await axios.get(`/books/${id}`);
-      console.log('API response:', res.data);
+      // console.log('API response:', res.data);
       return res?.data;
     },
   });
@@ -89,7 +89,7 @@ const BookDetails = () => {
             {/* Buy Button */}
             <button onClick={()=> setOpen(true)} className="flex items-center gap-2 bg-primary hover:bg-white border border-primary hover:text-black text-white px-8 py-3 rounded-full font-semibold transition">
               <FaShoppingCart />
-              Buy Now
+              Order Now
             </button>
             <BuyNowModal isOpen={open} onClose={() => setOpen(false)} book={ book} onConfirm={(handleBuyNow)}></BuyNowModal>
           </div>

@@ -15,7 +15,7 @@ const AddBooks = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data)
+    // console.log(data)
     try {
 
       const imageFile = data.image[0];

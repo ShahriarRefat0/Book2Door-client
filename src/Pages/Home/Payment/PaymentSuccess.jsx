@@ -65,7 +65,7 @@ const PaymentSuccess = () => {
           </Link>
 
           <Link
-            to="/dashboard/orders"
+            to="/dashboard/my-order"
             className="btn btn-ghost border text-gray-800 border-black dark:border-gray-200 dark:bg-white hover:bg-gray-700 hover:text-white dark:hover:bg-gray-900 dark:hover:text-gray-50 w-full sm:w-44 flex items-center justify-center gap-2 rounded-lg"
           >
             <FaFileInvoiceDollar /> View Orders
