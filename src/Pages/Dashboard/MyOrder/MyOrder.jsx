@@ -1,18 +1,17 @@
 import { Link } from "react-router";
 import Swal from "sweetalert2";
-import useAxios from "../../../hook/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
 import useAuth from "../../../hook/useAuth";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
 
 const MyOrder = () => {
 const {user} = useAuth()
-  const axios = useAxios()
-
+const axiosSecure = useAxiosSecure()
   const { data: orders = [], isLoading, isError, refetch } = useQuery({
     queryKey: ['orders', user?.email],
     queryFn: async () => {
-      const res = await axios.get(`/orders/${user?.email}`);
+      const res = await axiosSecure.get(`/orders`);
       return res.data
     }
   })
@@ -35,7 +34,7 @@ const {user} = useAuth()
   }
 
   const handlePayment = async (order) => {
-   console.log(order)
+  //  console.log(order)
 
     const paymentInfo = {
       orderId: order?._id,
@@ -116,7 +115,7 @@ const {user} = useAuth()
                       className={`badge ${order.orderStatus === "pending"
                         ? "badge-warning"
                         : order.orderStatus === "cancelled"
-                          ?  "badge-success" : "badge-error"
+                          ? "badge-error" : "badge-success"  
                           
                         }`}
                     >

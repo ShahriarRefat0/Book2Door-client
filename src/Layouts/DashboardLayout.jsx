@@ -15,13 +15,15 @@ import useAuth from "../hook/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import { IoLogOut } from "react-icons/io5";
+import useRole from '../hook/useRole';
+import LoadingSpinner from '../Components/LoadingSpinner/LoadingSpinner';
 
 
 
 const DashboardLayout = () => {
   const { signOutUser } = useAuth();
   const navigate = useNavigate();
-
+const [role, isRoleLoading] = useRole()
 
   const handleSignOut = () => {
     signOutUser()
@@ -40,6 +42,8 @@ const DashboardLayout = () => {
         });
       });
   };
+
+  if(isRoleLoading) return <LoadingSpinner></LoadingSpinner>
 
   return (
     <div>
@@ -111,86 +115,115 @@ const DashboardLayout = () => {
               </li>
 
               {/* //our dashboard links */}
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="My Orders"
-                  to={"/dashboard/my-order"}
-                >
-                  <AiFillProduct />
-                  <span className="is-drawer-close:hidden">My Orders</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="My Profile"
-                  to={"/dashboard/my-profile"}
-                >
-                  <IoPersonCircle />
-                  <span className="is-drawer-close:hidden">My Profile</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Payment History"
-                  to={"/dashboard/payment-history"}
-                >
-                  <FaRegCreditCard />
-                  <span className="is-drawer-close:hidden">Payment History</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Add Books"
-                  to={"/dashboard/add-books"}
-                >
-                  <BiSolidBookAdd />
-                  <span className="is-drawer-close:hidden">Add Books</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="My Books"
-                  to={"/dashboard/my-books"}
-                >
-                  <IoIosBookmarks />
-                  <span className="is-drawer-close:hidden">My Books</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Orders"
-                  to={"/dashboard/orders"}
-                >
-                  <TbTruckDelivery />
-                  <span className="is-drawer-close:hidden">Orders</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="All Users"
-                  to={"/dashboard/all-users"}
-                >
-                  <FaUsers />
-                  <span className="is-drawer-close:hidden">All Users</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Manage Books"
-                  to={"/dashboard/manage-books"}
-                >
-                  <MdLibraryBooks />
-                  <span className="is-drawer-close:hidden">Manage Books</span>
-                </NavLink>
-              </li>
+
+              {role === 'customer' && 
+                <>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Orders"
+                    to={"/dashboard/my-order"}
+                  >
+                    <AiFillProduct />
+                    <span className="is-drawer-close:hidden">My Orders</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Profile"
+                    to={"/dashboard/my-profile"}
+                  >
+                    <IoPersonCircle />
+                    <span className="is-drawer-close:hidden">My Profile</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Payment History"
+                    to={"/dashboard/payment-history"}
+                  >
+                    <FaRegCreditCard />
+                    <span className="is-drawer-close:hidden">Payment History</span>
+                  </NavLink>
+                </li>
+                </>
+        
+              
+              }
+              {role === 'admin' &&
+                <>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="All Users"
+                    to={"/dashboard/all-users"}
+                  >
+                    <FaUsers />
+                    <span className="is-drawer-close:hidden">All Users</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Manage Books"
+                    to={"/dashboard/manage-books"}
+                  >
+                    <MdLibraryBooks />
+                    <span className="is-drawer-close:hidden">Manage Books</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Profile"
+                    to={"/dashboard/my-profile"}
+                  >
+                    <IoPersonCircle />
+                    <span className="is-drawer-close:hidden">My Profile</span>
+                  </NavLink>
+                </li>
+              </>
+              
+              }
+              {role === 'librarian' && 
+                <>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Add Books"
+                    to={"/dashboard/add-books"}
+                  >
+                    <BiSolidBookAdd />
+                    <span className="is-drawer-close:hidden">Add Books</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Books"
+                    to={"/dashboard/my-books"}
+                  >
+                    <IoIosBookmarks />
+                    <span className="is-drawer-close:hidden">My Books</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Orders"
+                    to={"/dashboard/orders"}
+                  >
+                    <TbTruckDelivery />
+                    <span className="is-drawer-close:hidden">Orders</span>
+                  </NavLink>
+                </li>
+                </>}
+
+      
+             
+            
 
 
               {/* {

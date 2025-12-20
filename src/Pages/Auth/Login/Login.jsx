@@ -4,6 +4,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hook/useAuth";
 import Swal from "sweetalert2";
+import { saveOrUpdateUser } from "../../../utils";
 
 const Login = () => {
   const navigate = useNavigate()
@@ -17,47 +18,47 @@ const Login = () => {
     formState: { errors },
   } = useForm()
 
-  const handleLogin = (data) => {
+  const handleLogin = async (data) => {
     // console.log(data)
-    singInUser(data.email, data.password)
-      .then((res) => {
-        console.log(res)
-        Swal.fire({
-          title: "Login Successful",
-          icon: "success",
-          draggable: true,
-        });
-navigate(location?.state || '/')
-      })
-      .catch((e) => {
-        console.log(e.message)
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
-    })
+    try {
+      const { user} = await singInUser(data.email, data.password)
+      await saveOrUpdateUser({ image: user?.photoURL, name: user?.displayName, email: user?.email })
+      navigate(location?.state || '/')
+      Swal.fire({
+        title: "Login Successful",
+        icon: "success",
+        draggable: true,
+      });
+    
+    } catch(err){
+      console.log(err.message)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
+    }
   }
 
-  const handleGoogleLogin = () => {
-    sigInWIthGoogle()
-      .then((res) => {
-        console.log(res)
-        Swal.fire({
-          title: "Login Successful",
-          icon: "success",
-          draggable: true,
-        });
-        navigate(location?.state || '/')
-      })
-      .catch((e) => {
-        console.log(e.message)
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
-    })
+  const handleGoogleLogin = async () => {
+  try {
+      const { user } = await sigInWIthGoogle()
+      await saveOrUpdateUser({ image: user?.photoURL, name: user?.displayName, email: user?.email })
+      
+      Swal.fire({
+        title: "Registration Successful",
+        icon: "success",
+      });
+      navigate(location.state || '/');
+    } catch (err) {
+      console.log(err.message)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: err.message || "Something went wrong!",
+      });
+    }
+
   }
 
   return (
@@ -132,7 +133,7 @@ navigate(location?.state || '/')
             </label>
             <Link
               to="/forgot-password"
-              className="text-primary hover:underline"
+              className="text-primary cursor-pointer hover:underline"
             >
               Forgot password?
             </Link>
@@ -141,7 +142,7 @@ navigate(location?.state || '/')
           {/* Login Button */}
           <button
             type="submit"
-            className="w-full bg-primary hover:bg-primary-dark text-white py-2 rounded-lg font-medium transition"
+            className="w-full cursor-pointer bg-primary hover:bg-primary-dark text-white py-2 rounded-lg font-medium transition"
           >
             Login
           </button>
@@ -157,7 +158,7 @@ navigate(location?.state || '/')
         {/* Social Login */}
         <button
           onClick={handleGoogleLogin}
-          className="w-full border border-gray-300 dark:border-gray-600 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+          className="w-full cursor-pointer border border-gray-300 dark:border-gray-600 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
         >
           <img
             src="https://www.svgrepo.com/show/475656/google-color.svg"

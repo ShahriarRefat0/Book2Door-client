@@ -146,7 +146,7 @@ const Navbar = () => {
                 <label tabIndex={0} className="cursor-pointer">
                   <div className="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
                     <img
-                      src={user.photoURL || "/default-avatar.png"}
+                      src={user.photoURL || "https://static.vecteezy.com/system/resources/previews/005/005/788/non_2x/user-icon-in-trendy-flat-style-isolated-on-grey-background-user-symbol-for-your-web-site-design-logo-app-ui-illustration-eps10-free-vector.jpg"}
                       alt="User"
                       className="w-full h-full object-cover"
                     />

@@ -28,7 +28,6 @@ const EditBookInfo = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
   } = useForm();
 
 

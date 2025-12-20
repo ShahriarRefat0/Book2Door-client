@@ -28,6 +28,7 @@ const BuyNowModal = ({ isOpen, onClose, book, onConfirm }) => {
     try {const orderData = {
       bookId: book?._id,
       name: book?.title,
+      author: book?.author,
       category: book?.category,
       price: book?.price,
       description: book?.description,
@@ -106,7 +107,7 @@ const BuyNowModal = ({ isOpen, onClose, book, onConfirm }) => {
               type="text"
               value={user?.displayName || ""}
               readOnly
-              className="input input-bordered w-full bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
+              className="input  w-full bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
             />
           </div>
 
@@ -119,7 +120,7 @@ const BuyNowModal = ({ isOpen, onClose, book, onConfirm }) => {
               type="email"
               value={user?.email || ""}
               readOnly
-              className="input input-bordered w-full bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
+              className="input  w-full bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
             />
           </div>
 

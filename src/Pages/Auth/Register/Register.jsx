@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import useAuth from "../../../hook/useAuth";
 import Swal from "sweetalert2";
-import { imageUpload } from "../../../utils";
+import { imageUpload, saveOrUpdateUser } from "../../../utils";
 
 
 
@@ -18,20 +18,42 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
+  const handleGoogleSignUp = async () => {
+    try {
+      const { user } = await sigInWIthGoogle()
+      await saveOrUpdateUser({ image: user?.photoURL, name: user?.displayName, email: user?.email })
+      
+      navigate(location.state || '/');
+      Swal.fire({
+        title: "Registration Successful",
+        icon: "success",
+      });
+    } catch (err) {
+      console.log(err.message)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: err.message || "Something went wrong!",
+      });
+    }
+  }
   const handleRegister = async (data) => {
     //console.log("Register Data:", data);
-    const { email, name, password, photo } = data
-    const imageFile = photo[0]
-
+    
     try {
+      const { email, name, password, photo } = data
+      const imageFile = photo[0]
       const imageURL = await imageUpload(imageFile)
       await registerUser(email, password)
+
+      await saveOrUpdateUser({ image: imageURL, name, email})
+
       await updateUserProfile({
         displayName: name,
         photoURL: imageURL,
       })
 
-      navigate('/')
+      navigate(location.state || '/');
       Swal.fire({
         title: "Registration Successful",
         icon: "success",
@@ -174,7 +196,7 @@ return (
         {/* Submit */}
         <button
           type="submit"
-          className="w-full bg-primary hover:bg-primary-dark text-white py-2 rounded-lg font-medium transition"
+          className="w-full cursor-pointer bg-primary hover:bg-primary-dark text-white py-2 rounded-lg font-medium transition"
         >
           Sign Up
         </button>
@@ -189,7 +211,8 @@ return (
 
       {/* Google Sign Up */}
       <button
-        className="w-full border border-gray-300 dark:border-gray-600 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        onClick={handleGoogleSignUp}
+        className="w-full cursor-pointer border border-gray-300 dark:border-gray-600 py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
       >
         <img
           src="https://www.svgrepo.com/show/475656/google-color.svg"

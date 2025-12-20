@@ -1,17 +1,20 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
 
 const AllUsers = () => {
-  const [users, setUsers] = useState([]);
+  const axiosSecure = useAxiosSecure()
+  const { data: users = [] } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await axiosSecure('/users')
+      return res.data
+    }
+  })
 
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/admin/users`)
-      .then((res) => setUsers(res.data));
-  }, []);
+  console.log(users)
 
-  // 🔁 Update Role
+
   const handleRoleChange = async (id, role) => {
     const result = await Swal.fire({
       title: `Make ${role}?`,
@@ -23,22 +26,35 @@ const AllUsers = () => {
 
     if (!result.isConfirmed) return;
 
-    await axios.patch(
-      `${import.meta.env.VITE_API_URL}/admin/users/${id}`,
-      { role }
-    );
+    try {
 
-    setUsers((prev) =>
-      prev.map((user) =>
-        user._id === id ? { ...user, role } : user
-      )
-    );
+      axiosSecure.patch(`/users/role/${id}`)
 
-    Swal.fire(
-      "Success!",
-      `User is now a ${role}.`,
-      "success"
-    );
+      Swal.fire(
+        "Success!",
+        `User is now a ${role}.`,
+        "success"
+      );
+    } catch (err) {
+      console.log(err.message)
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: err.message || "Something went wrong!",
+      });
+    }
+    // await axios.patch(
+    //   `${import.meta.env.VITE_API_URL}/admin/users/${id}`,
+    //   { role }
+    // );
+
+    // setUsers((prev) =>
+    //   prev.map((user) =>
+    //     user._id === id ? { ...user, role } : user
+    //   )
+    // );
+
+
   };
 
   return (
@@ -85,13 +101,13 @@ const AllUsers = () => {
                   <td>
                     <span
                       className={`badge ${user.role === "admin"
-                          ? "badge-error"
-                          : user.role === "librarian"
-                            ? "badge-info"
-                            : "badge-ghost"
+                        ? "badge-success"
+                        : user.role === "librarian"
+                          ? "badge-info"
+                          : "badge-secondary"
                         }`}
                     >
-                      {user.role || "user"}
+                      {user.role || "customer"}
                     </span>
                   </td>
 
@@ -112,7 +128,7 @@ const AllUsers = () => {
                       onClick={() =>
                         handleRoleChange(user._id, "admin")
                       }
-                      className="btn btn-sm btn-outline btn-error"
+                      className="btn btn-sm btn-outline btn-success"
                     >
                       Make Admin
                     </button>

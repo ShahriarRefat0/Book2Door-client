@@ -1,44 +1,44 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
+import useAxios from "../../../hook/useAxios";
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../../hook/useAuth";
+
 
 const LibrarianOrders = () => {
-  const [orders, setOrders] = useState([]);
+  const axios = useAxios()
+const {user}  = useAuth()
 
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/librarian/orders`)
-      .then((res) => setOrders(res.data));
-  }, []);
+  const { data: orders = [], isError, isLoading, refetch } = useQuery({
+    queryKey: ['orders'],
+    queryFn: async () => {
+      const res = await axios.get(`/manage-orders/${user?.email}`)
+      return res.data
+    }
+  })
 
-  // ❌ Cancel Order
+  // console.log(orders)
+
+  //  Cancel Order
   const handleCancel = async (id) => {
-    const result = await Swal.fire({
+
+    const confirm = await Swal.fire({
       title: "Cancel this order?",
-      text: "This order will be cancelled!",
+      text: "This action cannot be undone!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes, cancel",
+      confirmButtonText: "Yes, cancel it",
     });
 
-    if (!result.isConfirmed) return;
+    if (!confirm.isConfirmed) return;
 
-    await axios.patch(
-      `${import.meta.env.VITE_API_URL}/orders/${id}/cancel`
-    );
+    await axios.patch(`/orders/cancel/${id}`);
 
-    setOrders((prev) =>
-      prev.map((order) =>
-        order._id === id
-          ? { ...order, status: "cancelled" }
-          : order
-      )
-    );
+    refetch();
 
-    Swal.fire("Cancelled!", "Order has been cancelled.", "success");
+    Swal.fire("Cancelled!", "Your order has been cancelled.", "success");
   };
 
-  // 🔁 Update Status
+  //  Update Status
   const handleStatusChange = async (id, newStatus) => {
     await axios.patch(
       `${import.meta.env.VITE_API_URL}/orders/${id}/status`,
@@ -53,6 +53,7 @@ const LibrarianOrders = () => {
       )
     );
   };
+
 
   return (
     <div className="p-6">
@@ -69,7 +70,7 @@ const LibrarianOrders = () => {
                 <th>#</th>
                 <th>Book</th>
                 <th>User</th>
-                <th>Status</th>
+                <th>Order Status</th>
                 <th>Change Status</th>
                 <th>Action</th>
               </tr>
@@ -80,18 +81,21 @@ const LibrarianOrders = () => {
                 <tr key={order._id}>
                   <th>{index + 1}</th>
 
-                  <td className="font-medium">
-                    {order.bookTitle}
+                  <td className="">
+                    <h4 className="font-semibold">Name:{order?.name}</h4>
+                    <p className="text-gray-500">Author: {order?.author}</p>
+
                   </td>
 
-                  <td>
-                    {order.userEmail}
+                  <td className="">
+                    <h4 className="font-semibold">{order?.customer?.email}</h4>
+                    <p className="text-gray-500">{order?.customer?.name}</p>
                   </td>
 
                   {/* Current Status */}
                   <td>
                     <span
-                      className={`badge ${order.status === "pending"
+                      className={`badge ${order.orderStatus === "pending"
                           ? "badge-warning"
                           : order.status === "shipped"
                             ? "badge-info"
@@ -100,17 +104,17 @@ const LibrarianOrders = () => {
                               : "badge-error"
                         }`}
                     >
-                      {order.status}
+                      {order.orderStatus}
                     </span>
                   </td>
 
                   {/* Status Dropdown */}
                   <td>
-                    {order.status !== "cancelled" &&
-                      order.status !== "delivered" && (
+                    {order.orderStatus !== "cancelled" &&
+                      order.orderStatus !== "delivered" && (
                         <select
                           className="select select-sm select-bordered"
-                          value={order.status}
+                        value={order.orderStatus}
                           onChange={(e) =>
                             handleStatusChange(
                               order._id,
@@ -118,18 +122,18 @@ const LibrarianOrders = () => {
                             )
                           }
                         >
-                          {order.status === "pending" && (
+                        {order.orderStatus === "pending" && (
                             <option value="pending">
                               Pending
                             </option>
                           )}
-                          {(order.status === "pending" ||
-                            order.status === "shipped") && (
+                        {(order.orderStatus === "pending" ||
+                          order.orderStatus === "shipped") && (
                               <option value="shipped">
                                 Shipped
                               </option>
                             )}
-                          {order.status === "shipped" && (
+                        {order.orderStatus === "shipped" && (
                             <option value="delivered">
                               Delivered
                             </option>
@@ -140,7 +144,7 @@ const LibrarianOrders = () => {
 
                   {/* Cancel */}
                   <td>
-                    {order.status === "pending" && (
+                    {order.orderStatus === "pending" && (
                       <button
                         onClick={() =>
                           handleCancel(order._id)
@@ -148,6 +152,15 @@ const LibrarianOrders = () => {
                         className="btn btn-sm btn-error"
                       >
                         Cancel
+                      </button>
+                    )}
+
+                    {order.orderStatus === "cancelled" && (
+                      <button
+                        disabled
+                        className="btn btn-sm btn-outline btn-error opacity-60 cursor-not-allowed"
+                      >
+                        Cancelled
                       </button>
                     )}
                   </td>

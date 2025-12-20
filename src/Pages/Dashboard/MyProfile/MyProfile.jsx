@@ -1,11 +1,19 @@
 import { useState } from "react";
 import useAuth from "../../../hook/useAuth";
 import UpdateProfileModal from "./UpdateProfileModal";
+import useRole from "../../../hook/useRole";
+import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
 
 const MyProfile = () => {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [role, isRoleLoading] = useRole()
 
+  if (isRoleLoading) {
+    return <LoadingSpinner></LoadingSpinner>
+  }
+
+  // console.log("role", role, isRoleLoading)
   return (
     <div className="min-h-screen bg-white  dark:bg-gray-900 p-6">
       <div className="max-w-3xl mx-auto  bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg p-8">
@@ -15,6 +23,7 @@ const MyProfile = () => {
         </h2>
 
         <div className="flex flex-col md:flex-row items-center gap-6">
+          <div className="flex flex-col  items-center">
           {/* Avatar */}
           <div className="w-32 h-32 rounded-full border-4 border-primary overflow-hidden">
             <img
@@ -22,6 +31,10 @@ const MyProfile = () => {
               alt="Profile"
               className="w-full h-full object-cover"
             />
+          </div>
+          <div className="bg-primary mt-3 rounded-2xl w-25 py-2 ">
+            <h3 className="text-center font-bold">{role}</h3>
+          </div>
           </div>
 
           {/* Info */}
