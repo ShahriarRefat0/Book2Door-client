@@ -1,10 +1,13 @@
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
+import { useNavigate } from "react-router";
+import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure()
-  const { data: users = [] } = useQuery({
+
+  const { data: users = [], refetch, isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure('/users')
@@ -12,10 +15,10 @@ const AllUsers = () => {
     }
   })
 
-  console.log(users)
+  // console.log(users)
 
 
-  const handleRoleChange = async (id, role) => {
+  const handleRoleChange = async (email, role) => {
     const result = await Swal.fire({
       title: `Make ${role}?`,
       text: `This user will be promoted to ${role}.`,
@@ -28,8 +31,9 @@ const AllUsers = () => {
 
     try {
 
-      axiosSecure.patch(`/users/role/${id}`)
-
+    await axiosSecure.patch(`/update-role`, {email, role})
+      refetch();
+      
       Swal.fire(
         "Success!",
         `User is now a ${role}.`,
@@ -43,19 +47,13 @@ const AllUsers = () => {
         text: err.message || "Something went wrong!",
       });
     }
-    // await axios.patch(
-    //   `${import.meta.env.VITE_API_URL}/admin/users/${id}`,
-    //   { role }
-    // );
-
-    // setUsers((prev) =>
-    //   prev.map((user) =>
-    //     user._id === id ? { ...user, role } : user
-    //   )
-    // );
-
 
   };
+
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner>
+  }
+
 
   return (
     <div className="p-6">
@@ -116,7 +114,7 @@ const AllUsers = () => {
                     <button
                       disabled={user.role === "librarian"}
                       onClick={() =>
-                        handleRoleChange(user._id, "librarian")
+                        handleRoleChange(user?.email, "librarian")
                       }
                       className="btn btn-sm btn-outline btn-info"
                     >
@@ -126,7 +124,7 @@ const AllUsers = () => {
                     <button
                       disabled={user.role === "admin"}
                       onClick={() =>
-                        handleRoleChange(user._id, "admin")
+                        handleRoleChange(user?.email, "admin")
                       }
                       className="btn btn-sm btn-outline btn-success"
                     >
