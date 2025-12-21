@@ -17,6 +17,10 @@ import LibrarianOrders from "../Pages/Dashboard/LibrarianOrders/LibrarianOrders"
 import AllBooks from "../Pages/Home/AllBooks";
 import PaymentSuccess from "../Pages/Home/Payment/PaymentSuccess";
 import EditBookInfo from "../Pages/Dashboard/MyBooks/EditBookInfo";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import LibrarianRoute from "./LibrarianRoute";
+import CustomerRoute from "./CustomerRoute";
 
 
 const router = createBrowserRouter([
@@ -56,44 +60,85 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <DashboardLayout></DashboardLayout>,
+    element: <PrivateRoute>
+      <DashboardLayout></DashboardLayout>
+    </PrivateRoute>,
     children: [
+      //customer route
+      {
+        path: '/dashboard/my-profile',
+        element: <PrivateRoute>
+          <MyProfile></MyProfile>
+        </PrivateRoute>
+      },
       {
         path: '/dashboard/my-order',
-        element: <MyOrder></MyOrder>
+        element: <PrivateRoute>
+          <CustomerRoute>
+            <MyOrder></MyOrder>
+          </CustomerRoute>
+        </PrivateRoute>
       },
       {
         path: '/dashboard/payment-history',
-        element: <PaymentHistory></PaymentHistory>
+        element: <PrivateRoute>
+          <CustomerRoute>
+            <PaymentHistory></PaymentHistory>
+          </CustomerRoute>
+        </PrivateRoute>
       },
-      {
-        path: '/dashboard/my-profile',
-        element: <MyProfile></MyProfile>
-      },
+     
+      //librarian routes
       {
         path: '/dashboard/edit-book-info/:id',
-        element: <EditBookInfo></EditBookInfo>
+        element: <PrivateRoute>
+          <LibrarianRoute>
+            <EditBookInfo></EditBookInfo>
+          </LibrarianRoute>
+        </PrivateRoute>
       },
       {
         path: '/dashboard/add-books',
-        element: <AddBooks></AddBooks>
+        element: <PrivateRoute>
+          <LibrarianRoute>
+            <AddBooks></AddBooks>
+          </LibrarianRoute>
+        </PrivateRoute>
       },
       {
         path: '/dashboard/my-books',
-        element: <MyBooks></MyBooks>
-      },
-      {
-        path: '/dashboard/all-users',
-        element: <AllUsers></AllUsers>
-      },
-      {
-        path: '/dashboard/manage-books',
-        element: <ManageBooks></ManageBooks>
+        element: <PrivateRoute>
+          <LibrarianRoute>
+            <MyBooks></MyBooks>
+          </LibrarianRoute>
+        </PrivateRoute>
       },
       {
         path: '/dashboard/orders',
-        element: <LibrarianOrders></LibrarianOrders>
+        element: <PrivateRoute>
+          <LibrarianRoute>
+            <LibrarianOrders></LibrarianOrders>
+          </LibrarianRoute>
+        </PrivateRoute>
       },
+      //admin routes
+      {
+        path: '/dashboard/all-users',
+        element: <PrivateRoute>
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        </PrivateRoute>
+      },
+      {
+        path: '/dashboard/manage-books',
+        element: <PrivateRoute>
+          <AdminRoute>
+            <ManageBooks></ManageBooks>
+          </AdminRoute>
+        </PrivateRoute>
+      },
+    
     ]
   }
 ]);

@@ -1,7 +1,6 @@
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
-import { useNavigate } from "react-router";
 import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
 
 const AllUsers = () => {
@@ -98,7 +97,7 @@ const AllUsers = () => {
                   {/* Role */}
                   <td>
                     <span
-                      className={`badge ${user.role === "admin"
+                      className={`badge badge-soft ${user.role === "admin"
                         ? "badge-success"
                         : user.role === "librarian"
                           ? "badge-info"
