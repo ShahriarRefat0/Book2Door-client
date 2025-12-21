@@ -8,7 +8,7 @@ import useAxiosSecure from '../../../hook/useAxiosSecure';
 const AdminStatistics = () => {
 const axiosSecure = useAxiosSecure()
 
-  const { data: stats = {}, isLoading, isError, error } = useQuery({
+  const { data: stats = {}, isLoading, isError } = useQuery({
     queryKey: ['admin-stats'],
     queryFn: async () => {
       const res = await axiosSecure.get('/admin-statistics');
@@ -19,6 +19,9 @@ console.log(stats)
 
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner> 
+  }
+  if (isError) {
+    return <div><p>something error......</p></div> 
   }
 
   // Mock data for the chart (Integrate your backend data here)

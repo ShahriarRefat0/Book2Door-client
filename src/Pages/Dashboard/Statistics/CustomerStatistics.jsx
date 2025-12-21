@@ -2,19 +2,27 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { FaBook, FaShoppingCart, FaStar, FaWallet } from 'react-icons/fa';
+import useAxiosSecure from '../../../hook/useAxiosSecure';
+import LoadingSpinner from '../../../Components/LoadingSpinner/LoadingSpinner';
 
 const CustomerStatistics = () => {
-  // Replace with your actual API endpoint and user context
-  const { data: stats, isLoading } = useQuery({
-    queryKey: ['user-stats'],
+const axiosSecure = useAxiosSecure()
+
+  const { data: stats = {}, isLoading, isError } = useQuery({
+    queryKey: ['customer-stats'],
     queryFn: async () => {
-      const res = await fetch('https://your-api-link.com/user-stats?email=user@example.com');
-      return res.json();
+      const res = await axiosSecure.get('/customer-statistics');
+      return res.data;
     },
   });
+// console.log(stats)
 
-  //if (isLoading) return <div className="p-10 text-center dark:text-white">Loading your library stats...</div>;
-
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner> 
+  }
+  if (isError) {
+    return <div><p>something error......</p></div> 
+  }
   // Mock data: Monthly spending or books borrowed
   const activityData = [
     { month: 'Jan', books: 2 },
@@ -41,9 +49,9 @@ const CustomerStatistics = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <UserCard title="Books Borrowed" value="18" icon={<FaBook />} color="bg-blue-500" />
-        <UserCard title="Active Orders" value="02" icon={<FaShoppingCart />} color="bg-emerald-500" />
-        <UserCard title="Total Spent" value="$142" icon={<FaWallet />} color="bg-violet-500" />
+        <UserCard title="Books Borrowed" value={stats?.totalOrders} icon={<FaBook />} color="bg-blue-500" />
+        <UserCard title="Active Orders" value={stats?.activeOrders} icon={<FaShoppingCart />} color="bg-emerald-500" />
+        <UserCard title="Total Spent" value={stats?.totalSpent} icon={<FaWallet />} color="bg-violet-500" />
         <UserCard title="Reviews Given" value="12" icon={<FaStar />} color="bg-amber-500" />
       </div>
 
