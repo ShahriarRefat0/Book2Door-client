@@ -21,6 +21,8 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import LibrarianRoute from "./LibrarianRoute";
 import CustomerRoute from "./CustomerRoute";
+import AdminStatistics from "../Pages/Dashboard/Statistics/AdminStatistics";
+import LibrarianStatistic from "../Pages/Dashboard/Statistics/LibrarianStatistic";
 
 
 const router = createBrowserRouter([
@@ -64,6 +66,19 @@ const router = createBrowserRouter([
       <DashboardLayout></DashboardLayout>
     </PrivateRoute>,
     children: [
+      //statistic base role
+      {
+        path: '/dashboard/admin-statistic',
+        element: <AdminStatistics></AdminStatistics>
+      },
+      {
+        path: '/dashboard/librarian-statistic',
+        element: <LibrarianStatistic></LibrarianStatistic>
+      },
+      {
+        path: '/dashboard/customer-statistic',
+        element: <AdminStatistics></AdminStatistics>
+      },
       //customer route
       {
         path: '/dashboard/my-profile',
