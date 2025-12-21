@@ -1,23 +1,30 @@
 import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../../hook/useAxios";
 import useAuth from "../../../hook/useAuth";
+import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
+import ErrorPage from "../../Error/ErrorPage";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
 
 const MyBooks = () => {
-  const axios = useAxios()
+  const axiosSecure = useAxiosSecure()
+
   const {user} = useAuth()
-  const { data: books = [] } = useQuery({
+  const { data: books = [], isLoading, isError } = useQuery({
     queryKey: ["books", user?.email],
     queryFn: async () => {
-      const res = await axios.get(`/my-inventory/${user?.email}`)
+      const res = await axiosSecure.get(`/my-inventory/${user?.email}`)
       return res?.data
     }
   })
-  console.log(books)
+  //console.log(books)
 
-  // if (loading) {
-  //   return <div className="p-6">Loading...</div>;
-  // }
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner>
+  }
+
+  if (isError) {
+    return <ErrorPage></ErrorPage>
+  }
 
   return (
     <div className="p-6">
@@ -64,7 +71,7 @@ const MyBooks = () => {
 
                   {/* Status */}
                   <td>
-                    <span className={`badge 
+                    <span className={`badge badge-soft  
                   ${book?.status === "Published"
                         ? "badge-success"
                         : "badge-warning"}`}>
@@ -77,7 +84,7 @@ const MyBooks = () => {
                     <Link
                       
                       to={`/dashboard/edit-book-info/${book._id}`}
-                      className="btn btn-ghost btn-xs">
+                      className="btn btn-primary text-white hover:bg-white hover:text-gray-800 btn-sm">
                       Edit Info
                     </Link>
                   </td>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
-import { FaBookOpen, FaBoxOpen, FaCheckCircle, FaHourglassHalf } from 'react-icons/fa';
+import { FaBookOpen, FaBoxOpen, FaHourglassHalf } from 'react-icons/fa';
 import useAxiosSecure from '../../../hook/useAxiosSecure';
 import LoadingSpinner from '../../../Components/LoadingSpinner/LoadingSpinner';
-
+import { LuCircleDollarSign } from "react-icons/lu";
 const LibrarianStatistic = () => {
   const axiosSecure = useAxiosSecure();
 
@@ -15,6 +15,7 @@ const LibrarianStatistic = () => {
       return res.data;
     },
   });
+  //console.log(stats)
 
   if (isLoading) return <LoadingSpinner />;
 
@@ -26,11 +27,12 @@ const LibrarianStatistic = () => {
     );
   }
 
-  // Integration: Data for Order Status distribution (Dynamic from your stats)
+ 
   const orderStatusData = [
     { name: 'Pending', value: stats?.pendingOrders || 0, color: '#f59e0b' },
     { name: 'Shipped', value: stats?.shippedOrders || 0, color: '#3b82f6' },
     { name: 'Delivered', value: stats?.deliveredOrders || 0, color: '#10b981' },
+    { name: 'Cancelled', value: stats?.cancelledOrders || 0, color: '#FF637D' },
   ];
 
   // Placeholder for Book performance (Ideally fetch this from backend too)
@@ -53,7 +55,7 @@ const LibrarianStatistic = () => {
         <LibCard title="Total Books" value={stats?.totalBooks || 0} icon={<FaBookOpen />} color="bg-indigo-600" />
         <LibCard title="Total Orders" value={stats?.totalOrders || 0} icon={<FaHourglassHalf />} color="bg-amber-500" />
         <LibCard title="Total Shipped" value={stats?.shippedOrders || 0} icon={<FaBoxOpen />} color="bg-blue-500" />
-        <LibCard title="Total Revenue" value={`$${stats?.totalRevenue || 0}`} icon={<FaCheckCircle />} color="bg-emerald-500" />
+        <LibCard title="Total Revenue" value={`$${stats?.totalRevenue || 0}`} icon={<LuCircleDollarSign />} color="bg-emerald-500" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

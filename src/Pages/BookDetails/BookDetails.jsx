@@ -2,14 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaSearchPlus, FaShoppingCart } from "react-icons/fa";
 import { useParams } from "react-router";
-import useAxios from "../../hook/useAxios";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 import BuyNowModal from "../../Components/BuyNowModal/BuyNowModal";
+import useAxiosSecure from "../../hook/useAxiosSecure";
 
 const BookDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure()
   const [open, setOpen] = useState(false);
 
   const handleBuyNow = () => {
@@ -25,7 +25,7 @@ const BookDetails = () => {
     queryKey: ['book', id],
     enabled: !!id,
     queryFn: async () => {
-      const res = await axios.get(`/books/${id}`);
+      const res = await axiosSecure.get(`/books/${id}`);
       // console.log('API response:', res.data);
       return res?.data;
     },

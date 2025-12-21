@@ -2,23 +2,24 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-import useAxios from "../../../hook/useAxios";
 import { imageUpload } from "../../../utils";
 import Swal from "sweetalert2";
 import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
+import ErrorPage from "../../Error/ErrorPage";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
 // import Swal from "sweetalert2";
 
 const EditBookInfo = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
 
 
   const { data: book, isLoading, isError } = useQuery({
     queryKey: ["book", id],
     enabled: !!id,
     queryFn: async () => {
-      const res = await axios.get(`/my-inventory/book/${id}`);
+      const res = await axiosSecure.get(`/my-inventory/book/${id}`);
       return res.data;
     },
   });
@@ -73,7 +74,7 @@ const EditBookInfo = () => {
 
       console.log("Updated Book:", updateBookData);
 
-      await axios.patch(`/my-inventory/book/${id}`, updateBookData);
+      await axiosSecure.patch(`/my-inventory/book/${id}`, updateBookData);
 
       Swal.fire({
         icon: "success",
@@ -92,6 +93,10 @@ const EditBookInfo = () => {
 
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>
+  }
+
+  if (isError) {
+    return <ErrorPage></ErrorPage>
   }
 
   return (

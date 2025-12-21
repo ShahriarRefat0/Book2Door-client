@@ -13,6 +13,7 @@ const ManageBooks = () => {
       return res.data
     }
   })
+  
 
 
  
@@ -92,7 +93,8 @@ const ManageBooks = () => {
 
                     {/* Librarian */}
                     <td>
-                      {book.librarianEmail}
+                      {book.librarian?.email}
+                      
                     </td>
 
                     {/* Status */}
@@ -130,7 +132,7 @@ const ManageBooks = () => {
                         onClick={() =>
                           handleDelete(book._id)
                         }
-                        className="btn btn-sm btn-error"
+                        className="btn btn-sm hover:bg-white text-white hover:text-gray-900 btn-error"
                       >
                         Delete
                       </button>

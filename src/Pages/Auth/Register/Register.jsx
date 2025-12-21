@@ -29,7 +29,7 @@ const Register = () => {
         icon: "success",
       });
     } catch (err) {
-      console.log(err.message)
+      //console.log(err.message)
       Swal.fire({
         icon: "error",
         title: "Oops...",

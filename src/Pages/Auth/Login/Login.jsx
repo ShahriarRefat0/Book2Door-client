@@ -51,7 +51,7 @@ const Login = () => {
       });
       navigate(location.state || '/');
     } catch (err) {
-      console.log(err.message)
+      // console.log(err.message)
       Swal.fire({
         icon: "error",
         title: "Oops...",

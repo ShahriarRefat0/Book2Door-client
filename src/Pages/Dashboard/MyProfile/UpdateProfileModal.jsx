@@ -2,10 +2,16 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAuth from "../../../hook/useAuth";
 import { imageUpload } from "../../../utils";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
+import { useState } from "react";
+import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
+import { useNavigate } from "react-router";
 
 const UpdateProfileModal = ({ closeModal }) => {
   const { user, updateUserProfile } = useAuth();
-
+  const axiosSecure = useAxiosSecure()
+  const [loading, setLoading] = useState(false);
+const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -17,6 +23,7 @@ const UpdateProfileModal = ({ closeModal }) => {
   });
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       let photoURL = user?.photoURL;
 
@@ -30,12 +37,15 @@ const UpdateProfileModal = ({ closeModal }) => {
         photoURL,
       });
 
+      await axiosSecure.patch(`/update-user-data/${user?.email}`, {name: data.name, image: photoURL})
+
       Swal.fire({
         icon: "success",
         title: "Profile Updated",
       });
 
       closeModal();
+      navigate('/dashboard/my-profile')
     } catch (err) {
       console.error(err);
       Swal.fire({
@@ -43,8 +53,14 @@ const UpdateProfileModal = ({ closeModal }) => {
         title: "Update Failed",
         text: err.message,
       });
+    } finally {
+      setLoading(false); 
     }
   };
+
+if (loading) {
+  return <LoadingSpinner></LoadingSpinner>
+}
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">

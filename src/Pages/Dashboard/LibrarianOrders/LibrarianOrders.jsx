@@ -1,17 +1,19 @@
 import Swal from "sweetalert2";
-import useAxios from "../../../hook/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hook/useAuth";
+import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
+import ErrorPage from "../../Error/ErrorPage";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
 
 
 const LibrarianOrders = () => {
-  const axios = useAxios()
+  const axiosSecure = useAxiosSecure()
 const {user}  = useAuth()
 
   const { data: orders = [], isError, isLoading, refetch } = useQuery({
     queryKey: ['orders'],
     queryFn: async () => {
-      const res = await axios.get(`/manage-orders/${user?.email}`)
+      const res = await axiosSecure.get(`/manage-orders/${user?.email}`)
       return res.data
     }
   })
@@ -31,7 +33,7 @@ const {user}  = useAuth()
 
     if (!confirm.isConfirmed) return;
 
-    await axios.patch(`/orders/cancel/${id}`);
+    await axiosSecure.patch(`/orders/cancel/${id}`);
 
     refetch();
 
@@ -40,20 +42,34 @@ const {user}  = useAuth()
 
   //  Update Status
   const handleStatusChange = async (id, newStatus) => {
-    await axios.patch(
-      `${import.meta.env.VITE_API_URL}/orders/${id}/status`,
-      { status: newStatus }
-    );
+    try {
+      
+      await axiosSecure.patch(`/orders/update-status/${id}`,
+        { status: newStatus }
+      );
+      refetch();
+      Swal.fire("Status Changed!", `Order ${newStatus} successfully.`);
 
-    setOrders((prev) =>
-      prev.map((order) =>
-        order._id === id
-          ? { ...order, status: newStatus }
-          : order
-      )
-    );
+    } catch (err) {
+       Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: err.message || "Something went wrong!",
+            });
+    }
+
+    
+    
   };
 
+
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner>
+  }
+
+  if (isError) {
+    return <ErrorPage></ErrorPage>
+  }
 
   return (
     <div className="p-6">
@@ -95,11 +111,11 @@ const {user}  = useAuth()
                   {/* Current Status */}
                   <td>
                     <span
-                      className={`badge ${order.orderStatus === "pending"
+                      className={`badge badge-soft ${order.orderStatus === "pending"
                           ? "badge-warning"
-                          : order.status === "shipped"
+                          : order.orderStatus === "shipped"
                             ? "badge-info"
-                            : order.status === "delivered"
+                            : order.orderStatus === "delivered"
                               ? "badge-success"
                               : "badge-error"
                         }`}
@@ -149,7 +165,7 @@ const {user}  = useAuth()
                         onClick={() =>
                           handleCancel(order._id)
                         }
-                        className="btn btn-sm btn-error"
+                        className="btn btn-sm text-white hover:bg-white hover:text-gray-900 btn-error"
                       >
                         Cancel
                       </button>

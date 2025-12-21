@@ -20,15 +20,7 @@ const axiosSecure = useAxiosSecure()
   // console.log("all  order", orders)
 
 
-  if (isLoading) {
-    return (
-      <LoadingSpinner></LoadingSpinner>
-    );
-  }
 
-  if (isError) {
-    return<ErrorPage></ErrorPage>
-  }
 
   const handlePayment = async (order) => {
   //  console.log(order)
@@ -49,7 +41,7 @@ const axiosSecure = useAxiosSecure()
           }
         }
 
-    const { data} = await axios.post(`/create-checkout-session`, paymentInfo)
+    const { data } = await axiosSecure.post(`/create-checkout-session`, paymentInfo)
 
     window.location.assign(data.url)
   }
@@ -67,13 +59,21 @@ const axiosSecure = useAxiosSecure()
 
     if (!confirm.isConfirmed) return;
 
-    await axios.patch(`/orders/cancel/${id}`);
+    await axiosSecure.patch(`/orders/cancel/${id}`);
 
     refetch();
 
     Swal.fire("Cancelled!", "Your order has been cancelled.", "success");
   };
 
+
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner>
+  }
+
+  if (isError) {
+    return <ErrorPage></ErrorPage>
+  }
 
   return (
     <div className="p-6">
@@ -109,7 +109,7 @@ const axiosSecure = useAxiosSecure()
 
                   <td>
                     <span
-                      className={`badge ${order.orderStatus === "pending"
+                      className={`badge badge-soft ${order.orderStatus === "pending"
                         ? "badge-warning"
                         : order.orderStatus === "cancelled"
                           ? "badge-error" : "badge-success"  
@@ -121,7 +121,7 @@ const axiosSecure = useAxiosSecure()
                   </td>
                   <td>
                     <span
-                      className={`badge ${order.paymentStatus === "unpaid"
+                      className={`badge badge-soft ${order.paymentStatus === "unpaid"
                         ? "badge-warning" :  "badge-success" 
                         }`}
                     >

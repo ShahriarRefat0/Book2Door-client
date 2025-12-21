@@ -6,7 +6,7 @@ import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure()
 
-  const { data: users = [], refetch, isLoading } = useQuery({
+  const { data: users = [], refetch, isLoading, isError } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure('/users')
@@ -39,7 +39,7 @@ const AllUsers = () => {
         "success"
       );
     } catch (err) {
-      console.log(err.message)
+     // console.log(err.message)
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -51,6 +51,10 @@ const AllUsers = () => {
 
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>
+  }
+
+  if (isError) {
+    return <ErrorPage></ErrorPage>
   }
 
 

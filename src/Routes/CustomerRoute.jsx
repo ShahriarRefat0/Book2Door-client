@@ -7,7 +7,7 @@ const CustomerRoute = ({ children }) => {
   if (isRoleLoading) {
     return <LoadingSpinner></LoadingSpinner>
   }
-  console.log(role)
+  //console.log(role)
 
   if (role !== "customer") {
     return (

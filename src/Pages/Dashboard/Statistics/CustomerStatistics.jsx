@@ -52,7 +52,7 @@ const axiosSecure = useAxiosSecure()
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <UserCard title="Books Borrowed" value={stats?.totalOrders} icon={<FaBook />} color="bg-blue-500" />
         <UserCard title="Active Orders" value={stats?.activeOrders} icon={<FaShoppingCart />} color="bg-emerald-500" />
-        <UserCard title="Total Spent" value={stats?.totalSpent} icon={<FaWallet />} color="bg-violet-500" />
+        <UserCard title="Total Spent" value={`${stats?.totalSpent}$`} icon={<FaWallet />} color="bg-violet-500" />
         <UserCard title="Reviews Given" value="12" icon={<FaStar />} color="bg-amber-500" />
       </div>
 

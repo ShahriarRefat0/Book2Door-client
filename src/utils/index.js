@@ -10,7 +10,7 @@ export const imageUpload = async (imageFile) => {
        }`,
        formData
   );
-  console.log(res?.data?.data?.url);
+  // console.log(res?.data?.data?.url);
      return res?.data?.data?.url;
 }
 

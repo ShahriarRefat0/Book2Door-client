@@ -2,11 +2,11 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { imageUpload } from "../../../utils";
 import useAuth from "../../../hook/useAuth";
-import useAxios from "../../../hook/useAxios";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
 
 const AddBooks = () => {
   const { user } = useAuth()
-  const axios = useAxios()
+  const axiosSecure = useAxiosSecure()
   const {
     register,
     handleSubmit,
@@ -26,7 +26,7 @@ const AddBooks = () => {
         title: data.title,
         author: data.author,
         price: parseFloat(data.price),
-        status: data.status, // published | unpublished
+        status: data.status, 
         description: data.description,
         image: imageURL,
         createdAt: new Date(),
@@ -43,10 +43,7 @@ const AddBooks = () => {
 
       // console.log(bookData)
 
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/books`,
-        bookData
-      );
+      await axiosSecure.post(`/books`, bookData);
 
       Swal.fire({
         icon: "success",

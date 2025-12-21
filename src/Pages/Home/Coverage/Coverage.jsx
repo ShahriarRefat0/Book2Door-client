@@ -33,7 +33,7 @@ const [serviceCenters, setServiceCenter] =useState([])
     const district = serviceCenters.find(c => c.district.toLowerCase().includes(location.toLowerCase()));
     if (district) {
       const coord = [district.latitude, district.longitude]
-      console.log("district", district, "coord", coord);
+      //console.log("district", district, "coord", coord);
 //goto the location
       mapRef.current.flyTo(coord, 14)
     }
