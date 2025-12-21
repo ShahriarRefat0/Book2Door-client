@@ -2,19 +2,23 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { FaUsers, FaBook, FaDollarSign, FaTruck } from 'react-icons/fa';
+import LoadingSpinner from '../../../Components/LoadingSpinner/LoadingSpinner';
+import useAxiosSecure from '../../../hook/useAxiosSecure';
 
 const AdminStatistics = () => {
-  // Replace with your actual axios/fetch logic
-  const { data: stats, isLoading } = useQuery({
+const axiosSecure = useAxiosSecure()
+
+  const { data: stats = {}, isLoading, isError, error } = useQuery({
     queryKey: ['admin-stats'],
     queryFn: async () => {
-      const res = await fetch('https://your-api-link.com/admin-stats');
-      return res.json();
+      const res = await axiosSecure.get('/admin-statistics');
+      return res.data;
     },
   });
+console.log(stats)
 
   if (isLoading) {
-    return <div className="p-8 text-center text-xl font-bold">Loading Analytics...</div>;
+    return <LoadingSpinner></LoadingSpinner> 
   }
 
   // Mock data for the chart (Integrate your backend data here)
@@ -23,7 +27,7 @@ const AdminStatistics = () => {
     { name: 'Tue', revenue: 3000 },
     { name: 'Wed', revenue: 5000 },
     { name: 'Thu', revenue: 2780 },
-    { name: 'Fri', revenue: 1890 },
+    { name: 'Fri', revenue: 1890 }, 
     { name: 'Sat', revenue: 2390 },
     { name: 'Sun', revenue: 3490 },
   ];
@@ -32,15 +36,14 @@ const AdminStatistics = () => {
     <div className="p-6 bg-gray-50 min-h-screen">
       <h2 className="text-3xl font-bold text-gray-800 mb-8">System Overview</h2>
 
-      {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-        <StatCard title="Total Revenue" value={`$${stats?.revenue || 0}`} icon={<FaDollarSign />} color="bg-green-500" />
-        <StatCard title="Total Users" value={stats?.users || 0} icon={<FaUsers />} color="bg-blue-500" />
-        <StatCard title="Total Books" value={stats?.books || 0} icon={<FaBook />} color="bg-purple-500" />
-        <StatCard title="Pending Orders" value={stats?.pending || 0} icon={<FaTruck />} color="bg-orange-500" />
+        <StatCard title="Total Revenue" value={`$${stats?.totalRevenue || 0}`} icon={<FaDollarSign />} color="bg-green-500" />
+        <StatCard title="Total Users" value={stats?.totalUsers || 0} icon={<FaUsers />} color="bg-blue-500" />
+        <StatCard title="Total Books" value={stats?.totalBooks || 0} icon={<FaBook />} color="bg-purple-500" />
+        <StatCard title="Pending Orders" value={stats?.totalPendingOrders || 0} icon={<FaTruck />} color="bg-orange-500" />
       </div>
 
-      {/* Chart Section */}
+      
       <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
         <h3 className="text-xl font-semibold mb-6 text-gray-700">Revenue Flow (Last 7 Days)</h3>
         <div className="h-[400px] w-full">

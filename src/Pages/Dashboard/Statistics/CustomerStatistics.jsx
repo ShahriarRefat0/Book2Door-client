@@ -13,7 +13,7 @@ const CustomerStatistics = () => {
     },
   });
 
-  if (isLoading) return <div className="p-10 text-center dark:text-white">Loading your library stats...</div>;
+  //if (isLoading) return <div className="p-10 text-center dark:text-white">Loading your library stats...</div>;
 
   // Mock data: Monthly spending or books borrowed
   const activityData = [
@@ -109,5 +109,6 @@ const UserCard = ({ title, value, icon, color }) => (
     </div>
   </div>
 );
+
 
 export default CustomerStatistics;

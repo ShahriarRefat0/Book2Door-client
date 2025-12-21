@@ -23,6 +23,7 @@ import LibrarianRoute from "./LibrarianRoute";
 import CustomerRoute from "./CustomerRoute";
 import AdminStatistics from "../Pages/Dashboard/Statistics/AdminStatistics";
 import LibrarianStatistic from "../Pages/Dashboard/Statistics/LibrarianStatistic";
+import CustomerStatistics from "../Pages/Dashboard/Statistics/CustomerStatistics";
 
 
 const router = createBrowserRouter([
@@ -77,7 +78,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard/customer-statistic',
-        element: <AdminStatistics></AdminStatistics>
+        element: <CustomerStatistics></CustomerStatistics>
       },
       //customer route
       {

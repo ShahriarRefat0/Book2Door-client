@@ -13,7 +13,7 @@ const LibrarianStatistic = () => {
     },
   });
 
-  if (isLoading) return <div className="p-10 text-center font-semibold">Loading My Library Insights...</div>;
+  //if (isLoading) return <div className="p-10 text-center font-semibold">Loading My Library Insights...</div>;
 
   // Mock data for Book performance (Sales per book)
   const bookPerformanceData = [

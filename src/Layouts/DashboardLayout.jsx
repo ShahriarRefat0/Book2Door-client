@@ -17,7 +17,7 @@ import { useNavigate } from "react-router";
 import { IoLogOut } from "react-icons/io5";
 import useRole from '../hook/useRole';
 import LoadingSpinner from '../Components/LoadingSpinner/LoadingSpinner';
-
+import { ImStatsDots } from "react-icons/im";
 
 
 const DashboardLayout = () => {
@@ -121,11 +121,11 @@ const [role, isRoleLoading] = useRole()
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="My Orders"
-                    to={"/dashboard/my-order"}
+                    data-tip="Statistic"
+                    to={"/dashboard/customer-statistic"}
                   >
-                    <AiFillProduct />
-                    <span className="is-drawer-close:hidden">My Orders</span>
+                    <ImStatsDots />
+                    <span className="is-drawer-close:hidden">Statistic</span>
                   </NavLink>
                 </li>
                 <li>
@@ -138,6 +138,17 @@ const [role, isRoleLoading] = useRole()
                     <span className="is-drawer-close:hidden">My Profile</span>
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My Orders"
+                    to={"/dashboard/my-order"}
+                  >
+                    <AiFillProduct />
+                    <span className="is-drawer-close:hidden">My Orders</span>
+                  </NavLink>
+                </li>
+              
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -154,6 +165,16 @@ const [role, isRoleLoading] = useRole()
               }
               {role === 'admin' &&
                 <>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Statistic"
+                    to={"/dashboard/admin-statistic"}
+                  >
+                    <ImStatsDots />
+                    <span className="is-drawer-close:hidden">Statistic</span>
+                  </NavLink>
+                </li>
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -191,6 +212,17 @@ const [role, isRoleLoading] = useRole()
               {
                 role === 'librarian' && 
                 <>
+                  
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Statistic"
+                    to={"/dashboard/librarian-statistic"}
+                  >
+                      <ImStatsDots />
+                    <span className="is-drawer-close:hidden">Statistic</span>
+                  </NavLink>
+                </li>
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
