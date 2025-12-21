@@ -1,31 +1,30 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const ManageBooks = () => {
-  const [books, setBooks] = useState([]);
+  const axiosSecure = useAxiosSecure()
+  const { data: books = [], isLoading, refetch } = useQuery({
+    queryKey: ["books"],
+    queryFn: async () => {
+      const res = await axiosSecure.get('/admin-inventory')
+      return res.data
+    }
+  })
 
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/admin/books`)
-      .then((res) => setBooks(res.data));
-  }, []);
 
-  // 🔁 Publish / Unpublish
+ 
   const handleStatusChange = async (id, status) => {
-    await axios.patch(
-      `${import.meta.env.VITE_API_URL}/admin/books/${id}`,
-      { status }
-    );
-
-    setBooks((prev) =>
-      prev.map((book) =>
-        book._id === id ? { ...book, status } : book
-      )
-    );
+    await axiosSecure.patch(`/update-status/${id}`, { status })
+    refetch()
+    Swal.fire({
+      title: `Book ${status} Successfully.`,
+      icon: "success",
+    });
   };
 
-  // ❌ Delete Book
+
   const handleDelete = async (id) => {
     const confirm = await Swal.fire({
       title: "Delete this book?",
@@ -37,14 +36,8 @@ const ManageBooks = () => {
 
     if (!confirm.isConfirmed) return;
 
-    await axios.delete(
-      `${import.meta.env.VITE_API_URL}/admin/books/${id}`
-    );
-
-    setBooks((prev) =>
-      prev.filter((book) => book._id !== id)
-    );
-
+    await axiosSecure.delete(`/admin-inventory/book/${id}`)
+    refetch()
     Swal.fire("Deleted!", "Book removed successfully.", "success");
   };
 
@@ -70,69 +63,70 @@ const ManageBooks = () => {
             </thead>
 
             <tbody>
-              {books.map((book, index) => (
-                <tr key={book._id}>
-                  <th>{index + 1}</th>
+              {
+                books.map((book, index) => (
+                  <tr key={book._id}>
+                    <th>{index + 1}</th>
 
-                  {/* Book */}
-                  <td className="flex items-center gap-3">
-                    <img
-                      src={book.image}
-                      alt={book.title}
-                      className="w-12 h-16 object-cover rounded"
-                    />
-                    <span className="font-medium">
-                      {book.title}
-                    </span>
-                  </td>
+                    {/* Book */}
+                    <td className="flex items-center gap-3">
+                      <img
+                        src={book.image}
+                        alt={book.title}
+                        className="w-12 h-16 object-cover rounded"
+                      />
+                      <span className="font-medium">
+                        {book.title}
+                      </span>
+                    </td>
 
-                  {/* Librarian */}
-                  <td>
-                    {book.librarianEmail}
-                  </td>
+                    {/* Librarian */}
+                    <td>
+                      {book.librarianEmail}
+                    </td>
 
-                  {/* Status */}
-                  <td>
-                    <span
-                      className={`badge ${book.status === "published"
+                    {/* Status */}
+                    <td>
+                      <span
+                        className={`badge badge-soft ${book.status === "Published"
                           ? "badge-success"
                           : "badge-warning"
-                        }`}
-                    >
-                      {book.status}
-                    </span>
-                  </td>
+                          }`}
+                      >
+                        {book.status}
+                      </span>
+                    </td>
 
-                  {/* Publish Toggle */}
-                  <td>
-                    <input
-                      type="checkbox"
-                      className="toggle toggle-success"
-                      checked={book.status === "published"}
-                      onChange={(e) =>
-                        handleStatusChange(
-                          book._id,
-                          e.target.checked
-                            ? "published"
-                            : "unpublished"
-                        )
-                      }
-                    />
-                  </td>
+                    {/* Publish Toggle */}
+                    <td>
+                      <input
+                        type="checkbox"
+                        className="toggle toggle-success"
+                        checked={book.status === "Published"}
+                        onChange={(e) =>
+                          handleStatusChange(
+                            book._id,
+                            e.target.checked
+                              ? "Published"
+                              : "Unpublished"
+                          )
+                        }
+                      />
+                    </td>
 
-                  {/* Delete */}
-                  <td>
-                    <button
-                      onClick={() =>
-                        handleDelete(book._id)
-                      }
-                      className="btn btn-sm btn-error"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                    {/* Delete */}
+                    <td>
+                      <button
+                        onClick={() =>
+                          handleDelete(book._id)
+                        }
+                        className="btn btn-sm btn-error"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
 
           </table>
