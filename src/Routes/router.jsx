@@ -23,8 +23,8 @@ import AdminStatistics from "../Pages/Dashboard/Statistics/AdminStatistics";
 import LibrarianStatistic from "../Pages/Dashboard/Statistics/LibrarianStatistic";
 import CustomerStatistics from "../Pages/Dashboard/Statistics/CustomerStatistics";
 import ErrorPage from "../Pages/Error/ErrorPage";
-import MyBooks from "../Pages/Dashboard/MyBooks/MyBooks";
-import EditBookInfo from "../Pages/Dashboard/MyBooks/EditBookInfo";
+import MyBooks from "../Pages/Dashboard/MYAllBooks/MyBooks";
+import EditBookInfo from "../Pages/Dashboard/MYAllBooks/UpdateBookInfo/EditBookInfo";
 
 
 
