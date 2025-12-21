@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hook/useAuth";
-// import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
+import ErrorPage from "../../Error/ErrorPage";
+import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
+
 
 const PaymentHistory = () => {
   const { user } = useAuth();
@@ -15,22 +18,20 @@ const PaymentHistory = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/payments?email=${user.email}`
+        `/payments`
       );
       return res.data;
     },
   });
 
+  console.log(payments)
+
   if (isLoading) {
-    return <div className="p-6">Loading payment history...</div>;
+    return <LoadingSpinner></LoadingSpinner>;
   }
 
   if (isError) {
-    return (
-      <div className="p-6 text-red-500">
-        Failed to load payment history
-      </div>
-    );
+    return <ErrorPage></ErrorPage>
   }
 
   return (
@@ -64,11 +65,11 @@ const PaymentHistory = () => {
                     <th>{index + 1}</th>
 
                     <td className="font-medium">
-                      {payment.bookTitle || "N/A"}
+                      {payment.name || "N/A"}
                     </td>
 
                     <td className="text-green-600 font-semibold">
-                      ${payment.amount}
+                      ${payment.price}
                     </td>
 
                     <td>

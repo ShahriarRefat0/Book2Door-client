@@ -87,7 +87,7 @@ return (
       {/* Header */}
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
-          Create an Account ✨
+          Create an Account 
         </h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
           Join <span className="text-primary font-semibold">Book2Door</span> and start reading

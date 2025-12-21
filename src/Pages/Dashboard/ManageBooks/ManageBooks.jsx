@@ -1,11 +1,12 @@
-import axios from "axios";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
+import ErrorPage from "../../Error/ErrorPage";
 
 const ManageBooks = () => {
   const axiosSecure = useAxiosSecure()
-  const { data: books = [], isLoading, refetch } = useQuery({
+  const { data: books = [], isLoading, refetch, isError } = useQuery({
     queryKey: ["books"],
     queryFn: async () => {
       const res = await axiosSecure.get('/admin-inventory')
@@ -40,6 +41,15 @@ const ManageBooks = () => {
     refetch()
     Swal.fire("Deleted!", "Book removed successfully.", "success");
   };
+
+
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner>
+  }
+
+  if (isError) {
+    return <ErrorPage></ErrorPage>
+  }
 
   return (
     <div className="p-6">

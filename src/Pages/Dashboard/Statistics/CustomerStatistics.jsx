@@ -4,6 +4,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { FaBook, FaShoppingCart, FaStar, FaWallet } from 'react-icons/fa';
 import useAxiosSecure from '../../../hook/useAxiosSecure';
 import LoadingSpinner from '../../../Components/LoadingSpinner/LoadingSpinner';
+import ErrorPage from '../../Error/ErrorPage';
 
 const CustomerStatistics = () => {
 const axiosSecure = useAxiosSecure()
@@ -21,7 +22,7 @@ const axiosSecure = useAxiosSecure()
     return <LoadingSpinner></LoadingSpinner> 
   }
   if (isError) {
-    return <div><p>something error......</p></div> 
+    return <ErrorPage></ErrorPage>
   }
   // Mock data: Monthly spending or books borrowed
   const activityData = [
@@ -41,13 +42,13 @@ const axiosSecure = useAxiosSecure()
   ];
 
   return (
-    <div className="p-6 bg-slate-50 dark:bg-slate-950 min-h-screen transition-colors duration-300">
+    <div className="p-6 bg-slate-200 dark:bg-slate-950 min-h-screen transition-colors duration-300">
       <header className="mb-8">
         <h2 className="text-2xl font-bold text-slate-800 dark:text-white">My Reading Activity</h2>
         <p className="text-slate-500 dark:text-slate-400">Track your books, reviews, and library spending</p>
       </header>
 
-      {/* Stats Cards */}
+    
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <UserCard title="Books Borrowed" value={stats?.totalOrders} icon={<FaBook />} color="bg-blue-500" />
         <UserCard title="Active Orders" value={stats?.activeOrders} icon={<FaShoppingCart />} color="bg-emerald-500" />
@@ -56,7 +57,7 @@ const axiosSecure = useAxiosSecure()
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Reading Trend Line Chart */}
+       
         <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
           <h3 className="text-lg font-bold mb-6 text-slate-700 dark:text-slate-200">Monthly Reading Habit</h3>
           <div className="h-64">
@@ -74,7 +75,7 @@ const axiosSecure = useAxiosSecure()
           </div>
         </div>
 
-        {/* Category Pie Chart */}
+        
         <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
           <h3 className="text-lg font-bold mb-6 text-slate-700 dark:text-slate-200">Book Categories</h3>
           <div className="h-64 flex flex-col md:flex-row items-center">

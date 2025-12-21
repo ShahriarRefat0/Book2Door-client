@@ -33,7 +33,7 @@ const MyProfile = () => {
             />
           </div>
           <div className="bg-primary mt-3 rounded-2xl w-25 py-2 ">
-            <h3 className="text-center font-bold">{role}</h3>
+            <h3 className="text-center text-white font-bold">{role}</h3>
           </div>
           </div>
 

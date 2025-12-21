@@ -22,7 +22,7 @@ const AdminStatistics = () => {
   }
 
   if (isError) {
-    return <Err></Err>
+    return <ErrorPage></ErrorPage>
   }
 
   const chartData = [

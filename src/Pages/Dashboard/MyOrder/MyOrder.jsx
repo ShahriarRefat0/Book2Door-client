@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
 import useAuth from "../../../hook/useAuth";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
+import ErrorPage from "../../Error/ErrorPage";
 
 const MyOrder = () => {
 const {user} = useAuth()
@@ -26,11 +27,7 @@ const axiosSecure = useAxiosSecure()
   }
 
   if (isError) {
-    return (
-      <div className="text-center py-20 text-red-500">
-        Failed to load books
-      </div>
-    );
+    return<ErrorPage></ErrorPage>
   }
 
   const handlePayment = async (order) => {

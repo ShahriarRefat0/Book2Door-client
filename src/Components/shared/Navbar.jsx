@@ -3,12 +3,15 @@ import { Link, NavLink, useNavigate } from 'react-router';
 import useAuth from '../../hook/useAuth';
 import Logo from '../Logo/Logo';
 import Swal from 'sweetalert2';
+import useRole from '../../hook/useRole';
 
 const Navbar = () => {
   const { user,
     signOutUser, } = useAuth()
   const [theme, setTheme] = useState(localStorage.getItem("theme") || 'light')
   const navigate = useNavigate()
+  const  [role ] = useRole()
+  console.log(role)
 
 
   const links = (
@@ -31,11 +34,19 @@ const Navbar = () => {
       </li>
 
       {user && (
-        <>
-          <li>
-            <NavLink to="/dashboard/admin-statistic">Dashboard</NavLink>
-          </li>
-        </>
+        <li>
+          <NavLink
+            to={
+              role === 'admin'
+                ? "/dashboard/admin-statistic"
+                : role === 'customer'
+                  ? "/dashboard/customer-statistic"
+                  : "/dashboard/librarian-statistic"
+            }
+          >
+            Dashboard
+          </NavLink>
+        </li>
       )}
     </>
   );
@@ -69,7 +80,7 @@ const Navbar = () => {
         navigate('/')
       })
       .catch((e) => {
-        console.log(e.message)
+        // console.log(e.message)
         Swal.fire({
           icon: "error",
           title: "Oops...",
