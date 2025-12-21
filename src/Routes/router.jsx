@@ -24,12 +24,14 @@ import CustomerRoute from "./CustomerRoute";
 import AdminStatistics from "../Pages/Dashboard/Statistics/AdminStatistics";
 import LibrarianStatistic from "../Pages/Dashboard/Statistics/LibrarianStatistic";
 import CustomerStatistics from "../Pages/Dashboard/Statistics/CustomerStatistics";
+import ErrorPage from "../Pages/Error/ErrorPage";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayouts />,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index: true,
@@ -70,15 +72,27 @@ const router = createBrowserRouter([
       //statistic base role
       {
         path: '/dashboard/admin-statistic',
-        element: <AdminStatistics></AdminStatistics>
+        element: <PrivateRoute>
+          <AdminRoute>
+            <AdminStatistics></AdminStatistics>
+          </AdminRoute>
+        </PrivateRoute>
       },
       {
         path: '/dashboard/librarian-statistic',
-        element: <LibrarianStatistic></LibrarianStatistic>
+        element: <PrivateRoute>
+          <LibrarianRoute>
+            <LibrarianStatistic></LibrarianStatistic>
+          </LibrarianRoute>
+        </PrivateRoute>
       },
       {
         path: '/dashboard/customer-statistic',
-        element: <CustomerStatistics></CustomerStatistics>
+        element: <PrivateRoute>
+          <CustomerRoute>
+            <CustomerStatistics></CustomerStatistics>
+          </CustomerRoute>
+        </PrivateRoute>
       },
       //customer route
       {
