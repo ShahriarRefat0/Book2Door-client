@@ -13,7 +13,7 @@ const CustomerRoute = ({ children }) => {
     return (
       <Navigate to='/' replace='true'></Navigate>
     )
-  }
+  } 
   return children
 };
 

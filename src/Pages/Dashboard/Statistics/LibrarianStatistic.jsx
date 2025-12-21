@@ -44,7 +44,7 @@ const LibrarianStatistic = () => {
   ];
 
   return (
-    <div className="p-6 bg-slate-50 dark:bg-slate-950 min-h-screen transition-colors duration-300">
+    <div className="p-6 bg-white dark:bg-slate-950 min-h-screen transition-colors duration-300">
       <header className="mb-8">
         <h2 className="text-2xl font-bold text-slate-800 dark:text-white">Librarian Dashboard</h2>
         <p className="text-slate-500 dark:text-slate-400 font-medium">Track your book sales and delivery status</p>
@@ -60,7 +60,7 @@ const LibrarianStatistic = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Sales Chart - Takes 2/3 space */}
-        <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+        <div className="lg:col-span-2 bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
           <h3 className="text-lg font-bold mb-6 text-slate-700 dark:text-slate-200 uppercase tracking-tight">Top Selling Books</h3>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">

@@ -48,7 +48,7 @@ const AdminStatistics = () => {
       </div>
 
       {/* Chart Section */}
-      <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-800 transition-colors">
+      <div className="bg-slate-50 dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-800 transition-colors">
         <h3 className="text-xl font-semibold mb-6 text-gray-700 dark:text-slate-200">Revenue Flow (Last 7 Days)</h3>
         <div className="h-[400px] w-full">
           <ResponsiveContainer width="100%" height="100%">

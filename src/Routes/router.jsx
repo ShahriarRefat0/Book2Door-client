@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import MainLayouts from'../Layouts/MainLayouts'
+import MainLayouts from '../Layouts/MainLayouts'
 import Home from "../Pages/Home/Home";
 import AuthLayout from "../Layouts/AuthLayouts";
 import Login from "../Pages/Auth/Login/Login";
@@ -10,13 +10,11 @@ import MyOrder from "../Pages/Dashboard/MyOrder/MyOrder";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import MyProfile from "../Pages/Dashboard/MyProfile/MyProfile";
 import AddBooks from "../Pages/Dashboard/AddBooks/AddBooks";
-import MyBooks from "../Pages/Dashboard/MYBooks/MyBooks";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import ManageBooks from "../Pages/Dashboard/ManageBooks/ManageBooks";
 import LibrarianOrders from "../Pages/Dashboard/LibrarianOrders/LibrarianOrders";
 import AllBooks from "../Pages/Home/AllBooks";
 import PaymentSuccess from "../Pages/Home/Payment/PaymentSuccess";
-import EditBookInfo from "../Pages/Dashboard/MyBooks/EditBookInfo";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import LibrarianRoute from "./LibrarianRoute";
@@ -25,6 +23,9 @@ import AdminStatistics from "../Pages/Dashboard/Statistics/AdminStatistics";
 import LibrarianStatistic from "../Pages/Dashboard/Statistics/LibrarianStatistic";
 import CustomerStatistics from "../Pages/Dashboard/Statistics/CustomerStatistics";
 import ErrorPage from "../Pages/Error/ErrorPage";
+import MyBooks from "../Pages/Dashboard/MyBooks/MyBooks";
+import EditBookInfo from "../Pages/Dashboard/MyBooks/EditBookInfo";
+
 
 
 const router = createBrowserRouter([
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,       
+        element: <Home />,
       },
       {
         path: '/book-details',
@@ -117,7 +118,7 @@ const router = createBrowserRouter([
           </CustomerRoute>
         </PrivateRoute>
       },
-     
+
       //librarian routes
       {
         path: '/dashboard/edit-book-info/:id',
@@ -168,7 +169,7 @@ const router = createBrowserRouter([
           </AdminRoute>
         </PrivateRoute>
       },
-    
+
     ]
   }
 ]);
