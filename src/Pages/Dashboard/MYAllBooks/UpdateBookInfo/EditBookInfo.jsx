@@ -2,11 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-import { imageUpload } from "../../../../utils";
 import Swal from "sweetalert2";
 import ErrorPage from "../../../Error/ErrorPage";
 import useAxiosSecure from "../../../../hook/useAxiosSecure";
 import LoadingSpinner from "../../../../Components/LoadingSpinner/LoadingSpinner";
+import { imageUpload } from "../../../../utils";
 
 
 const EditBookInfo = () => {
