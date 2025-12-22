@@ -39,6 +39,7 @@ const ManageBooks = () => {
     if (!confirm.isConfirmed) return;
 
     await axiosSecure.delete(`/admin-inventory/book/${id}`)
+    
     refetch()
     Swal.fire("Deleted!", "Book removed successfully.", "success");
   };

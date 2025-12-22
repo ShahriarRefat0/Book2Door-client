@@ -1,15 +1,15 @@
 import useAuth from "../../hook/useAuth";
 import { RxCross2 } from "react-icons/rx";
-import useAxios from "../../hook/useAxios";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import useAxiosSecure from "../../hook/useAxiosSecure";
 
 
 
 const BuyNowModal = ({ isOpen, onClose, book, onConfirm }) => {
   const { user } = useAuth();
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate()
   const {
     register,
@@ -47,7 +47,7 @@ const BuyNowModal = ({ isOpen, onClose, book, onConfirm }) => {
       createdAt: new Date(),
     }
 
-    axios.post('/orders', orderData)
+      axiosSecure.post('/orders', orderData)
  Swal.fire({
         icon: "success",
    title: "Order place Successfully.",

@@ -2,18 +2,18 @@ import React, { useEffect } from "react";
 import { useSearchParams, Link } from "react-router";
 import { motion } from "framer-motion";
 import { FaCheckCircle, FaHome, FaFileInvoiceDollar } from "react-icons/fa";
-import useAxios from "../../../hook/useAxios";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     if (sessionId) {
-      axios.post("/payment-success", { sessionId });
+      axiosSecure.post("/payment-success", { sessionId });
     }
-  }, [sessionId, axios]);
+  }, [sessionId, axiosSecure]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linier-to-br from-green-50 to-emerald-100 px-4">

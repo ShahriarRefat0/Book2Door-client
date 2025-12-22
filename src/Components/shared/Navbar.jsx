@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router';
 import useAuth from '../../hook/useAuth';
-import Logo from '../Logo/Logo';
+import logo from '../../../public/logo.svg';
 import Swal from 'sweetalert2';
 import useRole from '../../hook/useRole';
 
@@ -108,7 +108,7 @@ const Navbar = () => {
             </ul>
           </div>
 
-          <a className="btn btn-ghost text-xl text-primary "><Logo></Logo>Book2Door</a>
+          <a className="btn btn-ghost text-sm md:text-xl text-primary "> <img className='w-6 md:w-10' src={ logo} alt="" /> Book2Door</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
