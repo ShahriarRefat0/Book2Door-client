@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import ErrorPage from "../../../Error/ErrorPage";
 import useAxiosSecure from "../../../../hook/useAxiosSecure";
-import { imageUpload } from "../../../../utils";
+import { imageUpload } from "@/utils";
 import LoadingSpinner from "../../../../Components/LoadingSpinner/LoadingSpinner";
 
 
