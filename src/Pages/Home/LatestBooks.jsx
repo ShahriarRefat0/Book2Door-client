@@ -17,7 +17,7 @@ const axiosSecure = useAxiosSecure()
     }
   })
 
-  console.log(latestBooks)
+  //console.log(latestBooks)
 
   return (
     <section className="py-16 bg-[#F4F6F8] dark:bg-gray-700 ">
