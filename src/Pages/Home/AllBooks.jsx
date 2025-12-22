@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import BookCard from "../../Components/BookCard";
 import useAxios from "../../hook/useAxios";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
+import ErrorPage from "../Error/ErrorPage";
 
 
 const AllBooks = () => {
@@ -25,11 +26,7 @@ const axios = useAxios()
   }
 
   if (isError) {
-    return (
-      <div className="text-center py-20 text-red-500">
-        Failed to load books
-      </div>
-    );
+    return <ErrorPage></ErrorPage>
   }
 
   return (

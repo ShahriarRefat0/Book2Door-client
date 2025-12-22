@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 import BuyNowModal from "../../Components/BuyNowModal/BuyNowModal";
 import useAxiosSecure from "../../hook/useAxiosSecure";
+import ErrorPage from "../Error/ErrorPage";
 
 const BookDetails = () => {
   const [quantity, setQuantity] = useState(1);
@@ -20,7 +21,7 @@ const BookDetails = () => {
   const {
     data: book = { },
     isPending,
-    error,
+    isError,
   } = useQuery({
     queryKey: ['book', id],
     enabled: !!id,
@@ -31,7 +32,7 @@ const BookDetails = () => {
     },
   });
 
-  if (error) return <p>Error loading book</p>;
+  if (isError) return <ErrorPage></ErrorPage> ;
   if (isPending) return <LoadingSpinner></LoadingSpinner>
   
   

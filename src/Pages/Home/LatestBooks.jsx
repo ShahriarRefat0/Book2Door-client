@@ -1,14 +1,14 @@
 import { Link } from "react-router";
 import BookCard from "../../Components/BookCard";
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../hook/useAxios";
+import useAxiosSecure from "../../hook/useAxiosSecure";
 
 const LatestBooks = () => {
-const axios = useAxios()
+const axiosSecure = useAxiosSecure()
   const { data: latestBooks = [] } = useQuery({
     queryKey: ["latestBooks", "Published"],
     queryFn: async () => {
-      const res = await axios.get('/latest-books', {
+      const res = await axiosSecure.get('/latest-books', {
           params: {
           status: "Published",
         }}
@@ -16,6 +16,8 @@ const axios = useAxios()
       return res.data
     }
   })
+
+  console.log(latestBooks)
 
   return (
     <section className="py-16 bg-[#F4F6F8] dark:bg-gray-700 ">

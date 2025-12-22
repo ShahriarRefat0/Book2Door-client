@@ -11,7 +11,7 @@ const ErrorPage = () => {
           <h1 className="text-[12rem] font-black text-slate-200 dark:text-slate-900 leading-none select-none">
             404
           </h1>
-          <p className="absolute inset-0 flex items-center justify-center text-4xl font-bold text-indigo-600 dark:text-indigo-400 mt-8">
+          <p className="absolute inset-0 flex items-center justify-center text-4xl font-bold text-primary  mt-8">
             Oops! Lost in the Stacks?
           </p>
         </div>
@@ -37,7 +37,7 @@ const ErrorPage = () => {
 
           <Link
             to="/"
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 shadow-lg shadow-indigo-500/30 transition-all"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded-xl hover:bg-white hover:text-gray-800 border border-primary btn-primary shadow-lg shadow-indigo-500/30 transition-all"
           >
             <FaHome /> Back to Home
           </Link>
@@ -46,7 +46,7 @@ const ErrorPage = () => {
         {/* Visual Decoration (Optional) */}
         <div className="mt-16 grid grid-cols-3 gap-4 opacity-20 dark:opacity-10">
           <div className="h-1 bg-slate-400 rounded-full"></div>
-          <div className="h-1 bg-indigo-500 rounded-full"></div>
+          <div className="h-1 bg-primary rounded-full"></div>
           <div className="h-1 bg-slate-400 rounded-full"></div>
         </div>
       </div>

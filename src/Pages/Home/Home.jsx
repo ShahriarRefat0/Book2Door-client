@@ -3,7 +3,6 @@ import Banner from './Banner';
 import Coverage from './Coverage/Coverage';
 import WhyChooseBookCourier from './Coverage/WhyChooseBookCourier ';
 import LatestBooks from './LatestBooks';
-import BookDetails from '../BookDetails/BookDetails';
 import MostPopularBooks from './MostPopularBooks';
 import Brands from './Brands';
 import Blogs from './Blogs';

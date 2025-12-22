@@ -11,7 +11,7 @@ const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || 'light')
   const navigate = useNavigate()
   const  [role ] = useRole()
-  console.log(role)
+
 
 
   const links = (
