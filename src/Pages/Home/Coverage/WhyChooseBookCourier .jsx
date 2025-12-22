@@ -41,7 +41,7 @@ const WhyChooseBookCourier = () => {
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38] dark:text-gray-200">
-            Why Choose BookCourier?
+            Why Choose <span className="text-primary">Book2Door</span>?
           </h2>
           <p className="mt-4 text-gray-600 dark:text-gray-400 text-lg">
             We make buying and delivering books simple, fast, and reliable - all over Bangladesh.

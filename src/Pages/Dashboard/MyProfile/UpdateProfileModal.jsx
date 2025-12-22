@@ -43,9 +43,9 @@ const navigate = useNavigate()
         icon: "success",
         title: "Profile Updated",
       });
-
-      closeModal();
+      
       navigate('/dashboard/my-profile')
+      closeModal();
     } catch (err) {
       console.error(err);
       Swal.fire({

@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import LoadingSpinner from "../../../Components/LoadingSpinner/LoadingSpinner";
+import ErrorPage from "../../Error/ErrorPage";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure()

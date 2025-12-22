@@ -42,7 +42,7 @@ const [serviceCenters, setServiceCenter] =useState([])
 }
   // console.log(serviceCenters)
   return (
-    <div className="bg-white dark:bg-gray-900  p-15">
+    <div className="bg-white dark:bg-gray-900">
       <div className="max-w-11/12 mx-auto">
         {/* Heading */}
         <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38] dark:text-gray-200 text-center">

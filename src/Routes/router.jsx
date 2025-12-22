@@ -25,6 +25,7 @@ import CustomerStatistics from "../Pages/Dashboard/Statistics/CustomerStatistics
 import ErrorPage from "../Pages/Error/ErrorPage";
 import MyBooks from "../Pages/Dashboard/MYAllBooks/MyBooks";
 import EditBookInfo from "../Pages/Dashboard/MYAllBooks/UpdateBookInfo/EditBookInfo";
+import AboutUs from "../Pages/AboutUs/AboutUs";
 
 
 
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: '/payment-success',
         element: <PaymentSuccess></PaymentSuccess>
+      },
+      {
+        path: '/about-us',
+        element: <AboutUs></AboutUs>
       }
     ],
   },
