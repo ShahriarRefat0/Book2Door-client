@@ -24,15 +24,6 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/all-books"
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          All Books
-        </NavLink>
-      </li>
-
       {user && (
         <li>
           <NavLink
@@ -48,6 +39,32 @@ const Navbar = () => {
           </NavLink>
         </li>
       )}
+      <li>
+        <NavLink
+          to="/all-books"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          All Books
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/about-us"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          About Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/contact"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          Contact
+        </NavLink>
+      </li>
+
+     
     </>
   );
 
@@ -94,8 +111,8 @@ const Navbar = () => {
 
 
   return (
-    <div>
-      <div className="navbar bg-[#EEEEEE] dark:bg-[#1E2939] shadow-sm">
+    <div className="sticky top-0 z-10000 dark:bg-[#1E2939] bg-[#EEEEEE] shadow-sm">
+      <div className="navbar   mx-auto md:max-w-11/12">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

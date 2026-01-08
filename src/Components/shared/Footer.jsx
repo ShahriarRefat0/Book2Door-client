@@ -15,7 +15,7 @@ import Logo from "../Logo/Logo";
 const Footer = () => {
   return (
     <div className="bg-[#EEEEEE] dark:bg-[#1E2939] ">
-      <footer className="w-11/12 mx-auto py-14 md:py-20 font-secondary">
+      <footer className="w-11/12 mx-auto md:px-6 px-2 py-14 md:py-20 font-secondary">
         <div className="footer sm:footer-horizontal gap-10">
           {/* Logo + About */}
           <aside>

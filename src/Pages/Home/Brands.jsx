@@ -18,11 +18,11 @@ const marqueeBrands = [...brands, ...brands];
 const Brands = () => {
   return (
     <section className="py-14 bg-[#F4F6F8] dark:bg-gray-700 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-11/12 mx-auto md:px-6 px-2">
 
        
         <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38] dark:text-gray-200 mb-8 text-center">
-          Top Publisher
+          Top <span className="text-primary">Publisher</span>
         </h2>
 
    

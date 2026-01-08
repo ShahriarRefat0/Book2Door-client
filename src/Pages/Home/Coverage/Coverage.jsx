@@ -42,11 +42,11 @@ const [serviceCenters, setServiceCenter] =useState([])
 }
   // console.log(serviceCenters)
   return (
-    <div className="bg-white dark:bg-gray-900">
-      <div className="max-w-11/12 mx-auto">
+    <div className="bg-white dark:bg-gray-900 ">
+      <div className="max-w-11/12 md:px-6 px-2 mx-auto pb-10 pt-15">
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38] dark:text-gray-200 text-center">
-          We are available in 64 districts
+        <h2 className="text-2xl md:text-4xl font-bold text-[#0A2A38] dark:text-gray-200 text-center">
+          We are <span className='text-primary'>available</span> in 64 districts
         </h2>
 
         {/* Search Bar */}
@@ -99,7 +99,7 @@ const [serviceCenters, setServiceCenter] =useState([])
         </h3>
 
         {/* Map */}
-        <div className="w-full h-[600px] overflow-hidden rounded-xl shadow">
+        <div className="w-full h-[600px] overflow-hidden -z-100  shadow">
           <MapContainer
             ref={mapRef}
             center={position}

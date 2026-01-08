@@ -36,11 +36,11 @@ const WhyChooseBookCourier = () => {
 
   return (
     <section className="bg-[#F4F6F8] dark:bg-gray-700 py-16">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-11/12 md:px-6 px-2 mx-auto ">
 
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38] dark:text-gray-200">
+          <h2 className="text-2xl md:text-4xl font-bold text-[#0A2A38] dark:text-gray-200">
             Why Choose <span className="text-primary">Book2Door</span>?
           </h2>
           <p className="mt-4 text-gray-600 dark:text-gray-400 text-lg">

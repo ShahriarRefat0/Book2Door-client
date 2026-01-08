@@ -44,7 +44,7 @@ const blogs = [
 const Blogs = () => {
   return (
     <section className="py-20 bg-white dark:bg-gray-900">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-11/12 mx-auto md:px-6 px-2">
 
       
         <motion.div
@@ -54,7 +54,7 @@ const Blogs = () => {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="text-3xl font-bold">Latest Blogs</h2>
+          <h2 className="text-3xl md:text-5xl font-bold">Latest <span className="text-primary">Blogs</span></h2>
           <p className="text-gray-500 mt-2">
             Read our latest articles and library insights
           </p>

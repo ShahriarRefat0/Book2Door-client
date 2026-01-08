@@ -70,7 +70,7 @@ const AllBooks = () => {
 
   return (
     <section className="py-20 bg-[#F4F6F8] dark:bg-gray-700">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-11/12 mx-auto px-2 md:px-6">
 
 
         <div className="mb-12 text-center">

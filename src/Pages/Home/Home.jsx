@@ -7,6 +7,7 @@ import MostPopularBooks from './MostPopularBooks';
 import Brands from './Brands';
 import Blogs from './Blogs';
 
+
 const Home = () => {
   return (
     <div className='min-h-screen'>
@@ -14,8 +15,9 @@ const Home = () => {
       <LatestBooks></LatestBooks>
       <Coverage></Coverage>
       <WhyChooseBookCourier></WhyChooseBookCourier>
-     
       <MostPopularBooks></MostPopularBooks>
+      <Categories></Categories>
+    
       <Brands></Brands>
       <Blogs></Blogs>
     </div>

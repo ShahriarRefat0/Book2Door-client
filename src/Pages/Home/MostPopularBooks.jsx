@@ -1,10 +1,10 @@
 const MostPopularBooks = () => {
   return (
-    <section className="max-w-6xl mx-auto px-4 py-16">
+    <section className="max-w-11/12  mx-auto md:px-6 px-2 py-16">
       {/* Section Header */}
       <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38] dark:text-gray-200">
-          Most Popular Books
+        <h2 className="text-2xl md:text-4xl font-bold text-[#0A2A38] dark:text-gray-200">
+          Most Popular <span className="text-primary">Books</span>
         </h2>
         <p className="text-gray-500 mt-4">
           The Most Popular Books Today are available in Book Library
