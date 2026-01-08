@@ -6,7 +6,10 @@ import LatestBooks from './LatestBooks';
 import MostPopularBooks from './MostPopularBooks';
 import Brands from './Brands';
 import Blogs from './Blogs';
-
+import Categories from './Categories/Categories';
+import Statistics from './Statistics';
+import Testimonials from '../Testimonials';
+import FAQ from './FAQ';
 
 const Home = () => {
   return (
@@ -17,9 +20,11 @@ const Home = () => {
       <WhyChooseBookCourier></WhyChooseBookCourier>
       <MostPopularBooks></MostPopularBooks>
       <Categories></Categories>
-    
+      <Statistics></Statistics>
       <Brands></Brands>
       <Blogs></Blogs>
+      <Testimonials></Testimonials>
+      <FAQ></FAQ>
     </div>
   );
 };

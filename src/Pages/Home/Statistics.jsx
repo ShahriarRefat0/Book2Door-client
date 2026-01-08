@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FaBookOpen, FaUsers, FaTruck, FaCity } from "react-icons/fa";
+import AnimatedNumber from "../../Components/shared/AnimatedNumber";
 
 const stats = [
   {
@@ -49,7 +50,7 @@ const Statistics = () => {
       {/* Soft background glow */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-cyan-400/10 blur-3xl"></div>
 
-      <div className="relative max-w-7xl mx-auto px-4">
+      <div className="relative max-w-11/12 mx-auto px-3 md:px-6">
 
         {/* Header */}
         <motion.div

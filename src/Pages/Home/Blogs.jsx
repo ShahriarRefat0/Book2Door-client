@@ -54,7 +54,7 @@ const Blogs = () => {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="text-3xl md:text-5xl font-bold">Latest <span className="text-primary">Blogs</span></h2>
+          <h2 className="text-2xl md:text-4xl font-bold">Latest <span className="text-primary">Blogs</span></h2>
           <p className="text-gray-500 mt-2">
             Read our latest articles and library insights
           </p>

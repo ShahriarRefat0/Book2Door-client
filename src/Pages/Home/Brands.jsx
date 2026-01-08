@@ -21,7 +21,7 @@ const Brands = () => {
       <div className="max-w-11/12 mx-auto md:px-6 px-2">
 
        
-        <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A38] dark:text-gray-200 mb-8 text-center">
+        <h2 className="text-2xl md:text-4xl font-bold text-[#0A2A38] dark:text-gray-200 mb-8 text-center">
           Top <span className="text-primary">Publisher</span>
         </h2>
 
