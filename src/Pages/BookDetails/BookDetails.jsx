@@ -4,38 +4,36 @@ import { FaSearchPlus, FaShoppingCart } from "react-icons/fa";
 import { useParams } from "react-router";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 import BuyNowModal from "../../Components/BuyNowModal/BuyNowModal";
-import useAxiosSecure from "../../hook/useAxiosSecure";
+import axios from 'axios'
 import ErrorPage from "../Error/ErrorPage";
 
 const BookDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
-  const axiosSecure = useAxiosSecure()
   const [open, setOpen] = useState(false);
 
   const handleBuyNow = () => {
     setOpen(false)
-    
-}
+
+  }
 
   const {
-    data: book = { },
+    data: book = {},
     isPending,
     isError,
   } = useQuery({
     queryKey: ['book', id],
     enabled: !!id,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/books/${id}`);
-      // console.log('API response:', res.data);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/books/${id}`);
       return res?.data;
     },
   });
 
-  if (isError) return <ErrorPage></ErrorPage> ;
+  if (isError) return <ErrorPage></ErrorPage>;
   if (isPending) return <LoadingSpinner></LoadingSpinner>
-  
-  
+
+
   return (
     <section className="max-w-6xl mx-auto px-4 py-16">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -88,11 +86,11 @@ const BookDetails = () => {
             </div>
 
             {/* Buy Button */}
-            <button onClick={()=> setOpen(true)} className="flex items-center gap-2 bg-primary hover:bg-white border border-primary hover:text-black text-white px-8 py-3 rounded-full font-semibold transition">
+            <button onClick={() => setOpen(true)} className="flex items-center gap-2 bg-primary hover:bg-white border border-primary hover:text-black text-white px-8 py-3 rounded-full font-semibold transition">
               <FaShoppingCart />
               Order Now
             </button>
-            <BuyNowModal isOpen={open} onClose={() => setOpen(false)} book={ book} onConfirm={(handleBuyNow)}></BuyNowModal>
+            <BuyNowModal isOpen={open} onClose={() => setOpen(false)} book={book} onConfirm={(handleBuyNow)}></BuyNowModal>
           </div>
 
           {/* Meta Info */}

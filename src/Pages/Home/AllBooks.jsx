@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import BookCard from "../../Components/BookCard";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 import ErrorPage from "../Error/ErrorPage";
-import useAxiosSecure from "../../hook/useAxiosSecure";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import BookCardSkeletonGrid from "../../Components/BookCardSkeletonGrid";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
@@ -10,7 +10,7 @@ import { FaFilter } from "react-icons/fa";
 
 
 const AllBooks = () => {
-  const axiosSecure = useAxiosSecure()
+  // Use public axios for unauthenticated access
   const [searchText, setSearchText] = useState("");
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [sortType, setSortType] = useState("");
@@ -22,7 +22,7 @@ const AllBooks = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["books", "Published", currentPage, category],
     queryFn: async () => {
-      const res = await axiosSecure.get("/books", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/books`, {
         params: {
           status: "Published",
           page: currentPage,
@@ -46,7 +46,7 @@ const AllBooks = () => {
   // useEffect(() => {
   //   let result = [...books];
 
-  
+
   //   if (searchText) {
   //     result = result.filter((book) =>
   //       book.title.toLowerCase().includes(searchText.toLowerCase())
@@ -132,7 +132,7 @@ const AllBooks = () => {
         </div>
         {/* Search Bar */}
         <div className="my-6 flex flex-col md:flex-row gap-4 items-center justify-between">
-          
+
           <div className="relative w-full md:w-[220px]">
             {/* Filter Icon */}
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
@@ -204,7 +204,7 @@ const AllBooks = () => {
                   <circle cx="11" cy="11" r="8"></circle>
                   <path d="m21 21-4.3-4.3"></path>
                 </g>
-              </svg> 
+              </svg>
 
               <input
                 type="search"
@@ -216,8 +216,8 @@ const AllBooks = () => {
             </label>
           </form>
 
-          
-            {/* Sort */}
+
+          {/* Sort */}
           <div className="relative w-full md:w-[220px]">
             {/* Icon */}
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
@@ -267,8 +267,8 @@ const AllBooks = () => {
             </span>
           </div>
 
-     
-          
+
+
 
         </div>
 
@@ -316,7 +316,7 @@ const AllBooks = () => {
 
       </div>
 
-      
+
     </section>
   );
 };
