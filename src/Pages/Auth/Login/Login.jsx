@@ -5,10 +5,13 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../hook/useAuth";
 import Swal from "sweetalert2";
 import { saveOrUpdateUser } from "../../../utils";
+import { useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { singInUser,
     sigInWIthGoogle, } = useAuth()
   const {
@@ -61,6 +64,22 @@ const Login = () => {
 
   }
 
+
+
+  const autofillDemo = (type) => {
+    if (type === 'user') {
+      setEmail('user@email.com');
+      setPassword('123@Aa');
+    } else if (type === 'admin') {
+      setEmail('admin@email.com');
+      setPassword('123@Aa');
+    }
+   else if (type === 'librarian') {
+      setEmail('librarian@email.com');
+      setPassword('123@Aa');
+    }
+  }; 
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
       <Link
@@ -84,6 +103,11 @@ const Login = () => {
 
         {/* Form */}
         <form onSubmit={handleSubmit(handleLogin)} className="space-y-4">
+          <div className="flex gap-2">
+            <button type="button" onClick={() => autofillDemo('user')} className="btn btn-outline rounded-full flex-1">Demo User</button>
+            <button type="button" onClick={() => autofillDemo('admin')} className="btn btn-outline rounded-full flex-1">Demo Admin</button>
+            <button type="button" onClick={() => autofillDemo('librarian')} className="btn btn-outline rounded-full flex-1">Demo Admin</button>
+          </div>
           {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -91,6 +115,8 @@ const Login = () => {
             </label>
             <input
               type="email"
+               value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               {...register("email", { required: "Email is required" })}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -108,6 +134,8 @@ const Login = () => {
             </label>
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               {...register("password", {
