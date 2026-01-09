@@ -4,6 +4,7 @@ import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 import ErrorPage from "../Error/ErrorPage";
 import useAxiosSecure from "../../hook/useAxiosSecure";
 import { useEffect, useState } from "react";
+import BookCardSkeletonGrid from "../../Components/BookCardSkeletonGrid";
 
 
 const AllBooks = () => {
@@ -57,12 +58,15 @@ const AllBooks = () => {
 
 
 
-
-  if (isLoading) {
-    return (
-      <LoadingSpinner></LoadingSpinner>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <section className="py-20 bg-[#F4F6F8] dark:bg-gray-700">
+  //       <div className="max-w-11/12 mx-auto px-2 md:px-6">
+  //         <BookCardSkeletonGrid count={8} />
+  //       </div>
+  //     </section>
+  //   );
+  // }
 
   if (isError) {
     return <ErrorPage></ErrorPage>
@@ -127,13 +131,21 @@ const AllBooks = () => {
         </div>
 
 
+        {
+          isLoading ? <section className="py-20 bg-[#F4F6F8] dark:bg-gray-700">
+            <div className="max-w-11/12 mx-auto px-2 md:px-6">
+              <BookCardSkeletonGrid count={8} />
+            </div>
+          </section> : 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {filteredBooks.map((book) => (
             <BookCard key={book._id} book={book}></BookCard>
           ))}
         </div>
+        }
 
       </div>
+      
     </section>
   );
 };

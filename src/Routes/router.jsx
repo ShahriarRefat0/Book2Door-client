@@ -27,6 +27,10 @@ import MyBooks from "../Pages/Dashboard/MYAllBooks/MyBooks";
 import EditBookInfo from "../Pages/Dashboard/MYAllBooks/UpdateBookInfo/EditBookInfo";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import ContactUs from "../Pages/Contact/Contact";
+import CookiePolicy from "../Pages/Cookie/Cookie";
+
+
+
 
 
 
@@ -63,7 +67,14 @@ const router = createBrowserRouter([
       {
         path: '/contact',
         element: <ContactUs></ContactUs>
-      }
+      },
+      {
+        path: '/cookie-policy',
+        element: <CookiePolicy></CookiePolicy>
+      },
+     
+     
+     
     ],
   },
   {

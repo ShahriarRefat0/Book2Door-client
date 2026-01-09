@@ -2,10 +2,13 @@ import { Link } from "react-router";
 import BookCard from "../../Components/BookCard";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hook/useAxiosSecure";
+import { useState } from "react";
+import BookCardSkeletonGrid from "../../Components/BookCardSkeletonGrid";
 
 const LatestBooks = () => {
-const axiosSecure = useAxiosSecure()
-  const { data: latestBooks = [] } = useQuery({
+  const axiosSecure = useAxiosSecure()
+  
+  const { data: latestBooks = [], isLoading } = useQuery({
     queryKey: ["latestBooks", "Published"],
     queryFn: async () => {
       const res = await axiosSecure.get('/latest-books', {
@@ -33,12 +36,21 @@ const axiosSecure = useAxiosSecure()
           </p>
         </div>
 
-        {/* Books Grid */}
+        {
+          isLoading ? (
+            <section className="py-20 bg-[#F4F6F8] dark:bg-gray-700">
+                    <div className="max-w-11/12 mx-auto px-2 md:px-6">
+                      <BookCardSkeletonGrid count={8} />
+                    </div>
+                  </section> ) : 
+       
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {latestBooks.map((book) => (
             <BookCard key={book._id} book={book}></BookCard>
           ))}
         </div>
+        }
+      
 
         {/* View All Button */}
         <div className="text-center mt-12">

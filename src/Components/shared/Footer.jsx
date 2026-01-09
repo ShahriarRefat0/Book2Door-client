@@ -1,6 +1,4 @@
 import React from "react";
-
-
 import { FaFacebookSquare, FaLinkedin } from "react-icons/fa";
 import { FaSquareInstagram, FaSquareWhatsapp, FaXTwitter } from "react-icons/fa6";
 
@@ -55,9 +53,9 @@ const Footer = () => {
           <nav>
             <h6 className="footer-title  ">Legal</h6>
             <Link to='/about-us' className="link link-hover  ">About us</Link>
-            <a className="link link-hover  ">Cookie Policy</a>
-            <a className="link link-hover  ">Privacy Policy</a>
-            <a className="link link-hover  ">Terms & Conditions</a>
+            <Link to='/cookie-policy' className="link link-hover  ">Cookie Policy</Link>
+            <Link to='/'  className="link link-hover  ">Privacy Policy</Link>
+            <Link to='/' className="link link-hover  ">Terms & Conditions</Link>
           </nav>
 
           {/* Social + Subscribe */}

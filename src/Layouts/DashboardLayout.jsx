@@ -222,7 +222,17 @@ const [role, isRoleLoading] = useRole()
                       <ImStatsDots />
                     <span className="is-drawer-close:hidden">Statistic</span>
                   </NavLink>
-                </li>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="My Profile"
+                      to={"/dashboard/my-profile"}
+                    >
+                      <IoPersonCircle />
+                      <span className="is-drawer-close:hidden">My Profile</span>
+                    </NavLink>
+                  </li>
                 <li>
                   <NavLink
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -262,12 +272,12 @@ const [role, isRoleLoading] = useRole()
 
 
               {/* List item */}
-              <li>
+              {/* <li>
                 <button
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Settings"
                 >
-                  {/* Settings icon */}
+                 
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -285,7 +295,7 @@ const [role, isRoleLoading] = useRole()
                   </svg>
                   <span className="is-drawer-close:hidden">Settings</span>
                 </button>
-              </li>
+              </li> */}
             </ul>
             <div className="w-full p-3 border-t border-base-300 mt-auto">
               <button
